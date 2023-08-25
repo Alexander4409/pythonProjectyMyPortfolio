@@ -1,0 +1,12 @@
+{% extends 'skills/base.html' %}
+
+{% block content %}
+<h1>Типы фотосессий</h1>
+<div class="block">
+    {% for skill in skills %}
+    <div class="element">
+        <img src="{{ skill.photo.url }}" alt="">
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
