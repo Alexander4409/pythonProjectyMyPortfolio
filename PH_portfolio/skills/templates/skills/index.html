@@ -1,6 +1,13 @@
 {% extends 'skills/base.html' %}
+{% load static %}
+
 {% block content %}
-<h1>Типы фотосессий</h1>
+<h1>Портфолио фотографа</h1>
+
+<div class="img">
+    <img src="{% static 'skills/L.jpg' %}">
+</div>
+<h2>Типы фотосессий</h2>
 <div class="block">
     {% for skill in skills %}
     <div class="element">
