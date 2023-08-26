@@ -56,3 +56,35 @@ body {
 img {
     border-radius: 25px;
 }
+/* menu style */
+
+.menu {
+    background: lightyellow;
+    padding: 10px;
+    border-bottom: 6px solid #FFF;
+}
+
+.menu .wrap{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.menu ul{
+    display: flex;
+    list-style: none;
+    font-size: 20px;
+}
+
+.menu li{
+    margin-left: 40px;
+
+}
+.menu a{
+    color: #323238;
+    font-weight: bold;
+    text-decoration: none;
+}
+.menu img{
+    max-width: 70px;
+}

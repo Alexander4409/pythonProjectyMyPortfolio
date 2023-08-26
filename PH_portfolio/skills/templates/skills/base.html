@@ -5,8 +5,23 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="icon" type="image/x-icon" href="{% static 'skills/faviconPH.ico' %}">
 </head>
 <body>
+<div class="menu">
+    <div class="wrap">
+        <div class="logo">
+            <a href="{% url 'index' %}">
+                <img src="{% static 'skills/logo.png' %}" alt="">
+            </a>
+        </div>
+        <ul>
+            <li><a href="{% url 'index' %}">Главная</a></li>
+            <li><a href="{% static 'skills/resume.doc' %}" target="_blank">Резюме</a></li>
+            <li><a href="">Прайс</a></li>
+        </ul>
+    </div>
+</div>
 <div class="content">
     <div class="wrap">
         {% block content %}
