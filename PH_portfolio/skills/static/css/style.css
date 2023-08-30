@@ -88,3 +88,30 @@ img {
 .menu img{
     max-width: 70px;
 }
+
+/*blog*/
+.top {
+    background: #bd7dbd;;
+    margin: 0;
+    border-radius: 25px;
+    text-align: center;
+}
+
+.top a {
+    color: #ffd9a8;
+    text-decoration: none;
+    padding: 20px;
+    display: block;
+}
+.block_text, .count{
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.details{
+    background: #FFF;
+    padding: 20px 20px 60px;
+    box-sizing: border-box;
+    border-radius: 25px;
+}
+
