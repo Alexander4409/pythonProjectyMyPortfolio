@@ -1,6 +1,7 @@
 from django.urls import path
 from .import views
 
+
 app_name = 'reg_form'
 
 urlpatterns = [
@@ -10,6 +11,8 @@ urlpatterns = [
     path('login/', views.loginuser, name='login'),
 
     #RegForm
-    path('currentRegForm/', views.currentRegForm, name="currentRegForm")
+    path('currentRegForm/', views.currentRegForm, name="currentRegForm"),
+    #DTForm
+
 
 ]

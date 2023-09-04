@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from skills import views
+from django.views.i18n import JavaScriptCatalog
 
 
 urlpatterns = [
@@ -26,6 +27,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('blog/', include('blog.urls')),
     path('reg_form/', include('reg_form.urls')),
+    path("jsi18n", JavaScriptCatalog.as_view(), name='js-catlog')
 
 
 ]

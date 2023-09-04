@@ -4,6 +4,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 
+from django import forms
+from django.contrib.admin.widgets import AdminDateWidget, AdminTimeWidget, AdminSplitDateTime
+from .models import DTModel
+
 # Create your views here.
 def home(request):
     return render(request,'index')
@@ -50,4 +54,17 @@ def logoutuser(request):
         return redirect('index')
 
 def currentRegForm(request):
-    return render(request, "reg_form/currentRegForm.html")
+    #DTModel
+    form = DTForm()
+    return render(request, "reg_form/currentRegForm.html",{'form':form}) #DTModel
+
+#DTModel
+class DTForm(forms.Form):
+    your_name = forms.CharField(max_length=64)
+    date_input = forms.DateField(widget=AdminDateWidget())
+    time_input = forms.DateField(widget=AdminTimeWidget())
+    date_time_input = forms.DateField(widget=AdminSplitDateTime())
+
+
+
+
