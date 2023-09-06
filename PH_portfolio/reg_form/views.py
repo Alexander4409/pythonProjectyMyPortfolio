@@ -26,7 +26,7 @@ def signupuser(request):
                 )
                 user.save()
                 login(request, user)
-                return redirect('reg_form:currentRegForm')
+                return redirect('reg_form:currentRegForm_v2')
             except IntegrityError:
                 return render(request, "reg_form/signupuser.html", {'form': UserCreationForm(),
                                                                    "error": "Такой пользователь уже есть"})
@@ -48,7 +48,7 @@ def loginuser(request):
                            'error': "Неверные данные для входа!"})
         else:
             login(request, user)
-            return redirect('reg_form:currentRegForm')
+            return redirect('reg_form:currentRegForm_v2')
 
 def logoutuser(request):
     if request.method == "POST":
