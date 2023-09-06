@@ -29,7 +29,8 @@
         {% if user.is_authenticated %}
         <ul class="Reg">
             <li class="logo"><a href="">Пользователь {{ user.username }}</a> </li>
-            <li><a href="{% url 'reg_form:currentRegForm' %}">Мои фотосессии</a> </li>
+            <li><a href="{% url 'reg_form:currentRegForm_v2' %}">Зарегистрироваться на фотосессию</a> </li>
+            <li><a href="{% url 'reg_form:photosessions' %}">Мои фотосессии</a> </li>
             <li>
                 <form action="{% url 'reg_form:logout' %}" method="post">
                     {% csrf_token %}

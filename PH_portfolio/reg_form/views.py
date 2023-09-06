@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
+from django.contrib.auth.decorators import login_required
+
 
 from django import forms
 from django.contrib.admin.widgets import AdminDateWidget, AdminTimeWidget, AdminSplitDateTime
@@ -53,18 +55,46 @@ def logoutuser(request):
         logout(request)
         return redirect('index')
 
-def currentRegForm(request):
-    #DTModel
-    form = DTForm()
-    return render(request, "reg_form/currentRegForm.html",{'form':form}) #DTModel
+# def currentRegForm(request):
+#     #DTModel
+#     form = DTForm()
+#     return render(request, "reg_form/currentRegForm.html",{'form':form}) #DTModel
 
 #DTModel
 class DTForm(forms.Form):
+    user = forms.ModelChoiceField(queryset=User.objects.all())
     your_name = forms.CharField(max_length=64)
     date_input = forms.DateField(widget=AdminDateWidget())
     time_input = forms.DateField(widget=AdminTimeWidget())
     date_time_input = forms.DateField(widget=AdminSplitDateTime())
 
+class DTModelForm(forms.ModelForm):
+    date_time = forms.SplitDateTimeField(widget=AdminSplitDateTime())
+    class Meta:
+        model = DTModel
+        fields = "__all__"
+        widgets = {
+            'date': AdminDateWidget(),
+            'time': AdminTimeWidget(),
+        }
+
+
+def currentRegForm_v2(request):
+    #DTModel
+    if request.method == "POST":
+        form = DTModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            print("Error",form.errors)
+
+    form = DTModelForm()
+    return render(request, "reg_form/currentRegForm_v2.html",{'form':form}) #DTModel
 
 
 
+
+@login_required
+def photosessions(request):
+    photo_S = DTModel.objects.filter(user=request.user).order_by("-date")
+    return render(request, 'reg_form/photosessions.html', {'blogs': photo_S, 'user': request.user})

@@ -1,0 +1,16 @@
+{% extends 'skills/base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+<h1>Выбранные фотосессии</h1>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.media }}
+    {{ form.as_p }}
+    <input type="submit" name="Submit" id="submit">
+</form>
+
+{% endblock %}
