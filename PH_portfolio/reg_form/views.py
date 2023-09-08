@@ -5,14 +5,13 @@ from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 
-
-from django import forms
-from django.contrib.admin.widgets import AdminDateWidget, AdminTimeWidget, AdminSplitDateTime
 from .models import DTModel
+from .forms import DTModelForm
 
 # Create your views here.
 def home(request):
     return render(request,'index')
+
 
 def signupuser(request):
     if request.method == "GET":
@@ -55,36 +54,15 @@ def logoutuser(request):
         logout(request)
         return redirect('index')
 
-# def currentRegForm(request):
-#     #DTModel
-#     form = DTForm()
-#     return render(request, "reg_form/currentRegForm.html",{'form':form}) #DTModel
-
-#DTModel
-class DTForm(forms.Form):
-    user = forms.ModelChoiceField(queryset=User.objects.all())
-    your_name = forms.CharField(max_length=64)
-    date_input = forms.DateField(widget=AdminDateWidget())
-    time_input = forms.DateField(widget=AdminTimeWidget())
-    date_time_input = forms.DateField(widget=AdminSplitDateTime())
-
-class DTModelForm(forms.ModelForm):
-    date_time = forms.SplitDateTimeField(widget=AdminSplitDateTime())
-    class Meta:
-        model = DTModel
-        fields = "__all__"
-        widgets = {
-            'date': AdminDateWidget(),
-            'time': AdminTimeWidget(),
-        }
-
 
 def currentRegForm_v2(request):
     #DTModel
     if request.method == "POST":
         form = DTModelForm(request.POST)
         if form.is_valid():
-            form.save()
+            dtmodel = form.save(commit=False)
+            dtmodel.user = request.user
+            dtmodel.save()
         else:
             print("Error",form.errors)
 
@@ -98,3 +76,32 @@ def currentRegForm_v2(request):
 def photosessions(request):
     photo_S = DTModel.objects.filter(user=request.user).order_by("-date")
     return render(request, 'reg_form/photosessions.html', {'blogs': photo_S, 'user': request.user})
+
+
+#delete record
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import DTModel
+from .forms import DTModelForm
+
+
+def delete_record(request, record_id):
+    record = get_object_or_404(DTModel, id=record_id)
+
+    if request.method == 'POST':
+        record.delete()
+        return redirect('reg_form:photosessions')
+
+    return render(request, 'reg_form/confirm_delete.html', {'record': record})
+#edit record
+def edit_record(request, record_id):
+    record = get_object_or_404(DTModel, id=record_id)
+
+    if request.method == 'POST':
+        form = DTModelForm(request.POST, instance=record)
+        if form.is_valid():
+            form.save()
+            return redirect('reg_form:photosessions')
+    else:
+        form = DTModelForm(instance=record)
+
+    return render(request, 'reg_form/edit_record.html', {'form': form, 'record': record})

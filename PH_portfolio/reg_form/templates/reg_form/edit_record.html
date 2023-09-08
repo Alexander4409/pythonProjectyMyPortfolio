@@ -1,0 +1,12 @@
+{% extends 'skills/base.html' %}
+
+{% block content %}
+  <h1>Редактировать запись</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.media }}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a href="{% url 'reg_form:photosessions' %}" class="btn btn-secondary">Отмена</a>
+  </form>
+{% endblock %}

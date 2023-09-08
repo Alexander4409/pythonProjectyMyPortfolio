@@ -4,8 +4,9 @@
 
 {% block content %}
 
+
 <h1>Фотосессии пользователя {{ request.user.username }}</h1>
-<h2>Количество фотосессий: {{ DTModel_instance.count }}</h2>
+<h2>Количество фотосессий: {{ blogs.count }}</h2>
 
 <ul>
   {% for DTModel_instance in blogs %}
@@ -15,6 +16,9 @@
         </h2>
         <div class="blog_text">
             <p>Дата и время: {{ DTModel_instance.date_time }}</p>
+            <p>Выбранная дата и время: {{ DTModel_instance.date }} в {{ DTModel_instance.time }}</p>
+            <a href="{% url 'reg_form:edit_record' DTModel_instance.id %}" class="btn btn-primary">Редактировать</a>
+            <a href="{% url 'reg_form:delete_record' DTModel_instance.id %}" class="btn btn-danger">Удалить</a>
         </div>
     </div>
   {% endfor %}
