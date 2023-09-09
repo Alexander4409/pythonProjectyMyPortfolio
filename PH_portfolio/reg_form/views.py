@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 
 from .models import DTModel
 from .forms import DTModelForm
+
+
 
 # Create your views here.
 def home(request):
@@ -71,17 +73,21 @@ def currentRegForm_v2(request):
 
 
 
-
 @login_required
 def photosessions(request):
-    photo_S = DTModel.objects.filter(user=request.user).order_by("-date")
-    return render(request, 'reg_form/photosessions.html', {'blogs': photo_S, 'user': request.user})
+    sort_by = request.GET.get('sort_by', 'booking_date')
+
+    if sort_by == 'booking_date':
+        photo_S = DTModel.objects.filter(user=request.user).order_by("-date_time")
+    elif sort_by == 'photosession_date':
+        photo_S = DTModel.objects.filter(user=request.user).order_by("-date")
+    else:
+        photo_S = DTModel.objects.filter(user=request.user).order_by("-date_time")
+
+    return render(request, 'reg_form/photosessions.html', {'blogs': photo_S, 'user': request.user, 'sort_by': sort_by})
 
 
 #delete record
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import DTModel
-from .forms import DTModelForm
 
 
 def delete_record(request, record_id):
@@ -105,3 +111,4 @@ def edit_record(request, record_id):
         form = DTModelForm(instance=record)
 
     return render(request, 'reg_form/edit_record.html', {'form': form, 'record': record})
+

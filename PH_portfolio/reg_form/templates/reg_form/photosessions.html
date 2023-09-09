@@ -6,7 +6,15 @@
 
 
 <h1>Фотосессии пользователя {{ request.user.username }}</h1>
+
 <h2>Количество фотосессий: {{ blogs.count }}</h2>
+
+<div class="sorting-options">
+    <p>Сортировать по:</p>
+    <a href="?sort_by=booking_date">Дата бронирования</a> |
+    <a href="?sort_by=photosession_date">Дата проведения фотосессии</a>
+</div>
+
 
 <ul>
   {% for DTModel_instance in blogs %}
