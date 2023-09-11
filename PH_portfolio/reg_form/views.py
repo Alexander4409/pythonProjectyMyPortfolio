@@ -80,7 +80,7 @@ def photosessions(request):
     if sort_by == 'booking_date':
         photo_S = DTModel.objects.filter(user=request.user).order_by("-date_time")
     elif sort_by == 'photosession_date':
-        photo_S = DTModel.objects.filter(user=request.user).order_by("-date")
+        photo_S = DTModel.objects.filter(user=request.user).order_by("date_time")
     else:
         photo_S = DTModel.objects.filter(user=request.user).order_by("-date_time")
 

@@ -6,6 +6,7 @@
 {% block content %}
 
 <h1>Выберете дату проведение вашей фотосесии</h1>
+
 <form method="POST">
     {% csrf_token %}
     {{ form.media }}

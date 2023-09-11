@@ -14,12 +14,18 @@ class DTForm(forms.Form):
 
 
 class DTModelForm(ModelForm):
-    date_time = forms.SplitDateTimeField(widget=AdminSplitDateTime(attrs={'style': 'display:none;'}))
+    date_time = forms.SplitDateTimeField(widget=AdminSplitDateTime())
     class Meta:
         model = DTModel
         fields = ['name', 'date', 'time']
         widgets = {
-            'date': AdminDateWidget(),
-            'time': AdminTimeWidget(),
+            'date': AdminDateWidget(attrs={'required': False}),
+            'time': AdminTimeWidget(attrs={'required': False}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # self.fields['date_time'].widget = forms.HiddenInput()
+        self.fields.pop('date_time', None)
+
 

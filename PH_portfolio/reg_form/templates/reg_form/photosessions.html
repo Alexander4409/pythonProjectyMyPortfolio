@@ -20,10 +20,10 @@
   {% for DTModel_instance in blogs %}
     <div class="element">
         <h2 class="top">
-            <p> Имя : {{ request.user.username }}</p>
+            <p> Имя : {{ DTModel_instance.name }}</p>
         </h2>
         <div class="blog_text">
-            <p>Дата и время: {{ DTModel_instance.date_time }}</p>
+            <p>Дата и время бронирования: {{ DTModel_instance.date_time }}</p>
             <p>Выбранная дата и время: {{ DTModel_instance.date }} в {{ DTModel_instance.time }}</p>
             <a href="{% url 'reg_form:edit_record' DTModel_instance.id %}" class="btn btn-primary">Редактировать</a>
             <a href="{% url 'reg_form:delete_record' DTModel_instance.id %}" class="btn btn-danger">Удалить</a>
