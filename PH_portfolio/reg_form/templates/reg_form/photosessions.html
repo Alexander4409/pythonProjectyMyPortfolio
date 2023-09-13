@@ -25,6 +25,9 @@
         <div class="blog_text">
             <p>Дата и время бронирования: {{ DTModel_instance.date_time }}</p>
             <p>Выбранная дата и время: {{ DTModel_instance.date }} в {{ DTModel_instance.time }}</p>
+            <p>Время окончания: {{ DTModel_instance.end_time }}</p>
+            <p>Продолжительность: {{ DTModel_instance.duration }} часов</p>
+            <p>Стоимость: {{ DTModel_instance.price }} руб.</p>
             <a href="{% url 'reg_form:edit_record' DTModel_instance.id %}" class="btn btn-primary">Редактировать</a>
             <a href="{% url 'reg_form:delete_record' DTModel_instance.id %}" class="btn btn-danger">Удалить</a>
         </div>

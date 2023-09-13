@@ -57,19 +57,23 @@ def logoutuser(request):
         return redirect('index')
 
 
+@login_required
 def currentRegForm_v2(request):
-    #DTModel
     if request.method == "POST":
         form = DTModelForm(request.POST)
         if form.is_valid():
             dtmodel = form.save(commit=False)
             dtmodel.user = request.user
+            dtmodel.calculate_duration_and_price()  # Рассчитать стоимость и продолжительность
             dtmodel.save()
+            form = DTModelForm()
         else:
-            print("Error",form.errors)
+            print("Error", form.errors)
+    else:
+        form = DTModelForm()
 
-    form = DTModelForm()
-    return render(request, "reg_form/currentRegForm_v2.html",{'form':form}) #DTModel
+    return render(request, "reg_form/currentRegForm_v2.html", {'form': form})
+
 
 
 
