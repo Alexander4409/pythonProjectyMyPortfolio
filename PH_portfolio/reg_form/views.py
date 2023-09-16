@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 from .models import DTModel
 from .forms import DTModelForm
+from django.contrib import messages
 
 
 
@@ -67,6 +68,7 @@ def currentRegForm_v2(request):
             dtmodel.calculate_duration_and_price()  # Рассчитать стоимость и продолжительность
             dtmodel.save()
             form = DTModelForm()
+            messages.success(request, "Фотосессия успешно забронирована!")
         else:
             print("Error", form.errors)
     else:
