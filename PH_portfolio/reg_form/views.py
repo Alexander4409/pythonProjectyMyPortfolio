@@ -69,6 +69,11 @@ def currentRegForm_v2(request):
             dtmodel.save()
             form = DTModelForm()
             messages.success(request, "Фотосессия успешно забронирована!")
+
+            # Проверка значения favorites
+            if request.POST.get('favorites'):
+                dtmodel.toggle_favorite(request.user)
+
         else:
             print("Error", form.errors)
     else:

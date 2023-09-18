@@ -1,29 +1,6 @@
-# from django.db import models
-# from django.contrib.auth.models import User
-# # Create your models here.
-#
-#
-# class DTModel(models.Model):
-#     SESSION_TYPE_CHOICES = (
-#         ('standard', 'Стандартная'),
-#         ('advanced', 'Продвинутая'),
-#         ('premium', 'Премиум'),
-#     )
-#     name = models.CharField(max_length=64,null=True)
-#     date = models.DateField(null=True)
-#     time = models.TimeField(null=True)
-#     end_time = models.TimeField(null=True)
-#     session_type = models.CharField(max_length=10, choices=SESSION_TYPE_CHOICES, default='standard')
-#     date_time = models.DateTimeField(auto_now_add=True)
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#
-#
-#     def __str__(self):
-#         return self.name
-
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import datetime, timedelta
+from datetime import datetime
 
 class DTModel(models.Model):
     SESSION_TYPE_CHOICES = (
@@ -40,6 +17,8 @@ class DTModel(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     duration = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    favorites = models.ManyToManyField(User, related_name='favorite_photosessions', blank=True)
+
 
     def __str__(self):
         return self.name
@@ -58,3 +37,9 @@ class DTModel(models.Model):
             price = 0  # Обработка других типов
         self.duration = round(duration, 2)
         self.price = round(price, 2)
+
+    def toggle_favorite(self, user):
+        if user in self.favorites.all():
+            self.favorites.remove(user)
+        else:
+            self.favorites.add(user)
