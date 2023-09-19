@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from .models import DTModel
 from .forms import DTModelForm
 from django.contrib import messages
+from .forms import Discount
 
 
 
@@ -57,7 +58,6 @@ def logoutuser(request):
         logout(request)
         return redirect('index')
 
-
 @login_required
 def currentRegForm_v2(request):
     if request.method == "POST":
@@ -66,13 +66,24 @@ def currentRegForm_v2(request):
             dtmodel = form.save(commit=False)
             dtmodel.user = request.user
             dtmodel.calculate_duration_and_price()  # Рассчитать стоимость и продолжительность
-            dtmodel.save()
-            form = DTModelForm()
-            messages.success(request, "Фотосессия успешно забронирована!")
 
             # Проверка значения favorites
             if request.POST.get('favorites'):
                 dtmodel.toggle_favorite(request.user)
+
+            selected_date = dtmodel.date
+            discounts = Discount.objects.filter(start_date__lte=selected_date, end_date__gte=selected_date)
+
+            if discounts.exists():
+                # Применяем первую подходящую скидку
+                discount = discounts[0]
+                dtmodel.discount = discount
+                dtmodel.calculate_duration_and_price()
+
+            dtmodel.save()
+            messages.success(request, "Фотосессия успешно забронирована!")
+
+            form = DTModelForm()
 
         else:
             print("Error", form.errors)
@@ -80,6 +91,7 @@ def currentRegForm_v2(request):
         form = DTModelForm()
 
     return render(request, "reg_form/currentRegForm_v2.html", {'form': form})
+
 
 
 

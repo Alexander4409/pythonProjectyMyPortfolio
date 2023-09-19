@@ -1,6 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
+from decimal import Decimal
+from django.utils import timezone
+
+class Discount(models.Model):
+    name = models.CharField(max_length=64)  # Название скидки
+    start_date = models.DateTimeField()  # Дата и время начала скидки
+    end_date = models.DateTimeField()  # Дата и время окончания скидки
+    amount = models.DecimalField(max_digits=5, decimal_places=2)  # Размер скидки в процентах
+
+    def __str__(self):
+        return self.name
+
 
 class DTModel(models.Model):
     SESSION_TYPE_CHOICES = (
@@ -18,7 +30,7 @@ class DTModel(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     duration = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     favorites = models.ManyToManyField(User, related_name='favorite_photosessions', blank=True)
-
+    discount = models.ForeignKey(Discount, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -26,20 +38,25 @@ class DTModel(models.Model):
     def calculate_duration_and_price(self):
         start_datetime = datetime.combine(self.date, self.time)
         end_datetime = datetime.combine(self.date, self.end_time)
-        duration = (end_datetime - start_datetime).seconds / 3600  # Продолжительность в часах
+        duration = Decimal((end_datetime - start_datetime).seconds) / Decimal(3600)  # Продолжительность в часах
         if self.session_type == 'standard':
-            price = duration * 100
+            base_price = duration * Decimal(100)
         elif self.session_type == 'advanced':
-            price = duration * 200
+            base_price = duration * Decimal(200)
         elif self.session_type == 'premium':
-            price = duration * 300
+            base_price = duration * Decimal(300)
         else:
-            price = 0  # Обработка других типов
-        self.duration = round(duration, 2)
-        self.price = round(price, 2)
+            base_price = Decimal(0)  # Обработка других типов
 
-    def toggle_favorite(self, user):
-        if user in self.favorites.all():
-            self.favorites.remove(user)
+        # Проверяем, есть ли применяемая скидка
+        # if self.discount and self.discount.start_date <= datetime.now() <= self.discount.end_date:
+        if self.discount and self.discount.start_date <= timezone.now() <= self.discount.end_date:
+            discount_amount = self.discount.amount
         else:
-            self.favorites.add(user)
+            discount_amount = Decimal(0)
+
+        # Учитываем скидку
+        discounted_price = base_price - (base_price * (discount_amount / Decimal(100)))
+
+        self.duration = round(duration, 2)
+        self.price = round(discounted_price, 2)

@@ -3,6 +3,7 @@ from .models import DTModel
 from django import forms
 from django.contrib.admin.widgets import AdminDateWidget, AdminTimeWidget, AdminSplitDateTime
 from django.contrib.auth.models import User
+from .models import Discount
 
 
 class DTForm(forms.Form):
@@ -22,6 +23,7 @@ class DTModelForm(ModelForm):
     price = forms.DecimalField(max_digits=6, decimal_places=2, required=False)
     duration = forms.DecimalField(max_digits=6, decimal_places=2, required=False)
     favorites = forms.BooleanField(required=False)
+    discount = forms.ModelChoiceField(queryset=Discount.objects.all(), required=False)
 
     class Meta:
         model = DTModel
@@ -33,9 +35,14 @@ class DTModelForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # self.fields['date_time'].widget = forms.HiddenInput()
+        self.fields['date_time'].widget = forms.HiddenInput()
         self.fields.pop('date_time', None)
         self.fields.pop('price', None)
         self.fields.pop('duration', None)
+        # self.fields.pop('discount', None)
 
 
+class DiscountForm(forms.ModelForm):
+    class Meta:
+        model = Discount
+        fields = ['name', 'start_date', 'end_date', 'amount']
