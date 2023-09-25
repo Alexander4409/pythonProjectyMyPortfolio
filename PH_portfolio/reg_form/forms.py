@@ -39,7 +39,7 @@ class DTModelForm(ModelForm):
         self.fields.pop('date_time', None)
         self.fields.pop('price', None)
         self.fields.pop('duration', None)
-        # self.fields.pop('discount', None)
+        self.fields.pop('discount', None)
 
 
 class DiscountForm(forms.ModelForm):
