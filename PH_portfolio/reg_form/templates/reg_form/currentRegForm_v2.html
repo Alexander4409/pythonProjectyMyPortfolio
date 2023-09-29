@@ -20,7 +20,7 @@
     </ul>
 {% endif %}
 
-<form method="POST">
+<form method="POST" class="form-dt">
     {% csrf_token %}
     {{ form.media }}
     {{ form.as_p }}

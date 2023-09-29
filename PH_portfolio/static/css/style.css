@@ -116,3 +116,84 @@ img {
 .sorting-options a:hover {
     color: #ff4500;
 }
+
+/* Стили для блока фотосессии*/
+.content {
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    background: #fff;
+    border: 6px solid #beffc7;
+    border-radius: 25px;
+    text-align: center;
+}
+
+.content h1 {
+    font-size: 36px;
+    margin: 40px 0;
+}
+
+.content p {
+    font-size: 18px;
+    margin: 20px 0;
+}
+
+.content form {
+    margin-top: 20px;
+}
+
+.content button[type="submit"] {
+    background: #ff4500;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background 0.3s ease-in-out;
+}
+
+.content button[type="submit"]:hover {
+    background: #ff0000;
+}
+
+.content a.btn-secondary {
+    background: lightgray;
+    color: #000;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 20px;
+    border-radius: 25px;
+    transition: background 0.3s ease-in-out;
+}
+
+.content a.btn-secondary:hover {
+    background: gray;
+}
+
+/* Стили для формы DTForm */
+.form-dt {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для формы DTModelForm */
+.form-dt-model {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для формы регистрации */
+.form-register {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
