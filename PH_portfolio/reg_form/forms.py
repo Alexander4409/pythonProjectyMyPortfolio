@@ -3,7 +3,15 @@ from .models import DTModel
 from django import forms
 from django.contrib.admin.widgets import AdminDateWidget, AdminTimeWidget, AdminSplitDateTime
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 from .models import Discount
+
+class SignupForm(UserCreationForm):
+    email = forms.EmailField(max_length=200,help_text="Required")
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
+
 
 
 class DTForm(forms.Form):

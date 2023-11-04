@@ -5,26 +5,22 @@
 
 {% block content %}
 
+
 <h1>Выберете дату проведение вашей фотосесии</h1>
 
 {% if messages %}
     <ul class="messages">
         {% for message in messages %}
-            <li
             {% if message.tags %}
-                    class="{{ message.tags }}"
-            {% endif %}>
-                {{ message }}
-            </li>
+                <li class="{{ message.tags }}"> {{ message }} </li>
+            {% endif %}
         {% endfor %}
     </ul>
 {% endif %}
-
-<form method="POST" class="form-dt">
-    {% csrf_token %}
-    {{ form.media }}
-    {{ form.as_p }}
-    <input type="submit" name="Submit" id="submit">
-</form>
-
+    <form method="POST" class="form-dt">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
+        <input type="submit" name="Submit" id="submit">
+    </form>
 {% endblock %}

@@ -4,6 +4,7 @@ from datetime import datetime
 from decimal import Decimal
 from django.utils import timezone
 
+
 class Discount(models.Model):
     name = models.CharField(max_length=64)  # Название скидки
     start_date = models.DateTimeField()  # Дата и время начала скидки

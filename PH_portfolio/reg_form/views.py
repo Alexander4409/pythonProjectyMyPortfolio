@@ -6,7 +6,7 @@ from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 
 from .models import DTModel
-from .forms import DTModelForm
+from .forms import DTModelForm, SignupForm
 from django.contrib import messages
 from .forms import Discount
 
@@ -19,7 +19,7 @@ def home(request):
 
 def signupuser(request):
     if request.method == "GET":
-        return render(request, "reg_form/signupuser.html", {'form': UserCreationForm()})
+        return render(request, "reg_form/signupuser.html", {'form': SignupForm()})
     else:
         if request.POST['password1'] == request.POST['password2']:
             try:
@@ -31,11 +31,11 @@ def signupuser(request):
                 login(request, user)
                 return redirect('reg_form:currentRegForm_v2')
             except IntegrityError:
-                return render(request, "reg_form/signupuser.html", {'form': UserCreationForm(),
+                return render(request, "reg_form/signupuser.html", {'form': SignupForm(),
                                                                    "error": "Такой пользователь уже есть"})
         else:
             return render(request, "reg_form/signupuser.html",
-                          {'form': UserCreationForm(),
+                          {'form': SignupForm(),
                            "error" : "Пароли не совпадают!"})
 
 
@@ -87,10 +87,12 @@ def currentRegForm_v2(request):
 
         else:
             print("Error", form.errors)
+
+
     else:
         form = DTModelForm()
 
-    return render(request, "reg_form/currentRegForm_v2.html", {'form': form})
+    return render(request, "reg_form/currentRegForm_v2.html",{'form': form})
 
 
 
