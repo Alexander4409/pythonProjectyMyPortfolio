@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
+
 
 from .models import DTModel
 from .forms import DTModelForm, SignupForm
@@ -16,7 +17,7 @@ from .forms import Discount
 def home(request):
     return render(request,'index')
 
-
+#рабочая регистрация
 def signupuser(request):
     if request.method == "GET":
         return render(request, "reg_form/signupuser.html", {'form': SignupForm()})

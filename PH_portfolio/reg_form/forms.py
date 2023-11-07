@@ -13,7 +13,6 @@ class SignupForm(UserCreationForm):
         fields = ('username', 'email', 'password1', 'password2')
 
 
-
 class DTForm(forms.Form):
     user = forms.ModelChoiceField(queryset=User.objects.all())
     your_name = forms.CharField(max_length=64)
