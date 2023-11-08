@@ -29,7 +29,7 @@ class DTModelForm(ModelForm):
     session_type = forms.ChoiceField(choices=DTModel.SESSION_TYPE_CHOICES)
     price = forms.DecimalField(max_digits=6, decimal_places=2, required=False)
     duration = forms.DecimalField(max_digits=6, decimal_places=2, required=False)
-    favorites = forms.BooleanField(required=False)
+    # favorites = forms.BooleanField(required=False)
     discount = forms.ModelChoiceField(queryset=Discount.objects.all(), required=False)
 
     class Meta:

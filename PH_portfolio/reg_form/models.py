@@ -61,3 +61,7 @@ class DTModel(models.Model):
 
         self.duration = round(duration, 2)
         self.price = round(discounted_price, 2)
+
+    def save(self, *args, **kwargs):
+        self.calculate_duration_and_price()
+        super().save(*args, **kwargs)

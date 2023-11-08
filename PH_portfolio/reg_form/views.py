@@ -115,7 +115,6 @@ def photosessions(request):
 
 #delete record
 
-
 def delete_record(request, record_id):
     record = get_object_or_404(DTModel, id=record_id)
 
@@ -124,6 +123,7 @@ def delete_record(request, record_id):
         return redirect('reg_form:photosessions')
 
     return render(request, 'reg_form/confirm_delete.html', {'record': record})
+
 #edit record
 def edit_record(request, record_id):
     record = get_object_or_404(DTModel, id=record_id)

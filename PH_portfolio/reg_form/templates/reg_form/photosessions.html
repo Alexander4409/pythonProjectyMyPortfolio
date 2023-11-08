@@ -28,22 +28,10 @@
             <p>Время окончания: {{ DTModel_instance.end_time }}</p>
             <p>Продолжительность: {{ DTModel_instance.duration }} часов</p>
             <p>Стоимость: {{ DTModel_instance.price }} руб.</p>
-            <a href="{% url 'reg_form:edit_record' DTModel_instance.id %}" class="btn btn-primary">Редактировать</a>
-            <a href="{% url 'reg_form:delete_record' DTModel_instance.id %}" class="btn btn-danger">Удалить</a>
-
-            <!-- Кнопка добавления/удаления из избранного -->
-            <form method="POST" action="{% url 'reg_form:currentRegForm_v2' %}">
-                {% csrf_token %}
-                <input type="hidden" name="favorites" value="True">
-                <input type="hidden" name="id" value="{{ DTModel_instance.id }}">
-                <button type="submit" class="btn btn-secondary">
-                    {% if request.user in DTModel_instance.favorites.all %}
-                        Удалить из избранного
-                    {% else %}
-                        Добавить в избранное
-                    {% endif %}
-                </button>
-            </form>
+            <div class="btn_delet_rewrite">
+                <a href="{% url 'reg_form:edit_record' DTModel_instance.id %}" class="btn btn-primary">Редактировать</a>
+                <a href="{% url 'reg_form:delete_record' DTModel_instance.id %}" class="btn btn-danger">Удалить</a>
+            </div>
 
         </div>
     </div>
