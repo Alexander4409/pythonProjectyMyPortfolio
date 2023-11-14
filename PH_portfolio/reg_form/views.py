@@ -26,6 +26,7 @@ def signupuser(request):
             try:
                 user = User.objects.create_user(
                     request.POST['username'],
+                    email=request.POST['email'],  # Добавьте эту строку для включения адреса электронной почты
                     password=request.POST['password1']
                 )
                 user.save()
@@ -33,11 +34,11 @@ def signupuser(request):
                 return redirect('reg_form:currentRegForm_v2')
             except IntegrityError:
                 return render(request, "reg_form/signupuser.html", {'form': SignupForm(),
-                                                                   "error": "Такой пользователь уже есть"})
+                                                                    "error": "Такой пользователь уже существует"})
         else:
             return render(request, "reg_form/signupuser.html",
                           {'form': SignupForm(),
-                           "error" : "Пароли не совпадают!"})
+                           "error": "Пароли не совпадают!"})
 
 
 def loginuser(request):
