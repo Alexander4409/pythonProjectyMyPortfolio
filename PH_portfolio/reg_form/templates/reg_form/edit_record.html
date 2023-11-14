@@ -13,6 +13,7 @@
 {% else %}
   <form method="post" action="{% url 'reg_form:edit_record' record.id %}">
     {% csrf_token %}
+    {{ form.media }}
     {{ form.as_p }}
     <button type="submit">Сохранить изменения</button>
   </form>
