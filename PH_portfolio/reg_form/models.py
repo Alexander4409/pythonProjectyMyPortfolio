@@ -32,9 +32,17 @@ class DTModel(models.Model):
     duration = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     favorites = models.ManyToManyField(User, related_name='favorite_photosessions', blank=True)
     discount = models.ForeignKey(Discount, on_delete=models.SET_NULL, null=True, blank=True)
+    editable = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        date_difference = abs(self.date - timezone.localdate())
+        self.editable = date_difference.days > 3
+        super().save(*args, **kwargs)
+
 
     def __str__(self):
         return self.name
+
 
     def calculate_duration_and_price(self):
         start_datetime = datetime.combine(self.date, self.time)

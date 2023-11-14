@@ -29,9 +29,15 @@
             <p>Продолжительность: {{ DTModel_instance.duration }} часов</p>
             <p>Стоимость: {{ DTModel_instance.price }} руб.</p>
             <div class="btn_delet_rewrite">
-                <a href="{% url 'reg_form:edit_record' DTModel_instance.id %}" class="btn btn-primary">Редактировать</a>
+                {% if DTModel_instance.editable %}
+                    <button href="{% url 'reg_form:edit_record' DTModel_instance.id %}" class="btn btn-primary">Редактировать</button>
+                {% else %}
+                    <button class="btn btn-primary" type="button" disabled>Редактировать</button>
+                {% endif %}
                 <a href="{% url 'reg_form:delete_record' DTModel_instance.id %}" class="btn btn-danger">Удалить</a>
             </div>
+
+
 
         </div>
     </div>

@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
-
+from django.utils import timezone
 
 from .models import DTModel
 from .forms import DTModelForm, SignupForm
@@ -96,8 +96,18 @@ def currentRegForm_v2(request):
     return render(request, "reg_form/currentRegForm_v2.html",{'form': form})
 
 
-
-
+# @login_required
+# def photosessions(request):
+#     sort_by = request.GET.get('sort_by', 'booking_date')
+#
+#     if sort_by == 'booking_date':
+#         photo_S = DTModel.objects.filter(user=request.user).order_by("-date_time")
+#     elif sort_by == 'photosession_date':
+#         photo_S = DTModel.objects.filter(user=request.user).order_by("date_time")
+#     else:
+#         photo_S = DTModel.objects.filter(user=request.user).order_by("-date_time")
+#
+#     return render(request, 'reg_form/photosessions.html', {'blogs': photo_S, 'user': request.user, 'sort_by': sort_by})
 
 @login_required
 def photosessions(request):
@@ -109,6 +119,14 @@ def photosessions(request):
         photo_S = DTModel.objects.filter(user=request.user).order_by("date_time")
     else:
         photo_S = DTModel.objects.filter(user=request.user).order_by("-date_time")
+
+    current_date = timezone.localdate()
+
+    for session in photo_S:
+        date_difference = abs(session.date - current_date)
+        print(f"Session {session.id}, Date Difference: {date_difference.days}")
+        session.editable = date_difference.days > 3
+
 
     return render(request, 'reg_form/photosessions.html', {'blogs': photo_S, 'user': request.user, 'sort_by': sort_by})
 
@@ -125,8 +143,28 @@ def delete_record(request, record_id):
     return render(request, 'reg_form/confirm_delete.html', {'record': record})
 
 #edit record
+# @login_required
+# def edit_record(request, record_id):
+#     record = get_object_or_404(DTModel, id=record_id)
+#
+#     if request.method == 'POST':
+#         form = DTModelForm(request.POST, instance=record)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('reg_form:photosessions')
+#     else:
+#         form = DTModelForm(instance=record)
+#
+#     return render(request, 'reg_form/edit_record.html', {'form': form, 'record': record})
+
+
+
+
 def edit_record(request, record_id):
     record = get_object_or_404(DTModel, id=record_id)
+
+    if not record.editable:
+        return redirect('reg_form:photosessions')
 
     if request.method == 'POST':
         form = DTModelForm(request.POST, instance=record)
@@ -137,4 +175,3 @@ def edit_record(request, record_id):
         form = DTModelForm(instance=record)
 
     return render(request, 'reg_form/edit_record.html', {'form': form, 'record': record})
-
