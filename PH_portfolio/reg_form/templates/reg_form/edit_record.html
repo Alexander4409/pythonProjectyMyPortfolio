@@ -1,12 +1,23 @@
+
+
 {% extends 'skills/base.html' %}
 
+{% load static %}
+
 {% block content %}
-  <h1>Редактировать запись</h1>
-  <form method="post">
+
+<h1>Редактирование записи</h1>
+
+{% if error_message %}
+  <p>{{ error_message }}</p>
+{% else %}
+  <form method="post" action="{% url 'reg_form:edit_record' record.id %}">
     {% csrf_token %}
-    {{ form.media }}
     {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Сохранить</button>
-    <a href="{% url 'reg_form:photosessions' %}" class="btn btn-secondary">Отмена</a>
+    <button type="submit">Сохранить изменения</button>
   </form>
+{% endif %}
+
+<a href="{% url 'reg_form:photosessions' %}">Назад к списку фотосессий</a>
+
 {% endblock %}

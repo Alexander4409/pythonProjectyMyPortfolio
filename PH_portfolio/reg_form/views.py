@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
-
+from django.utils import timezone
 
 from .models import DTModel
 from .forms import DTModelForm, SignupForm
@@ -125,8 +125,27 @@ def delete_record(request, record_id):
     return render(request, 'reg_form/confirm_delete.html', {'record': record})
 
 #edit record
+# def edit_record(request, record_id):
+#     record = get_object_or_404(DTModel, id=record_id)
+#
+#     if request.method == 'POST':
+#         form = DTModelForm(request.POST, instance=record)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('reg_form:photosessions')
+#     else:
+#         form = DTModelForm(instance=record)
+#
+#     return render(request, 'reg_form/edit_record.html', {'form': form, 'record': record})
+from datetime import timedelta
+
+@login_required
 def edit_record(request, record_id):
     record = get_object_or_404(DTModel, id=record_id)
+
+    # Проверяем, можно ли редактировать запись
+    if record.date - timedelta(days=3) < timezone.now().date():
+        return render(request, 'reg_form/edit_record.html', {'record': record, 'error_message': 'Нельзя редактировать запись за 3 дня до начала фотосессии.'})
 
     if request.method == 'POST':
         form = DTModelForm(request.POST, instance=record)
