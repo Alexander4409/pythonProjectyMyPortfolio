@@ -111,12 +111,18 @@ def currentRegForm_v2(request):
             selected_start_time = dtmodel.time
             selected_end_time = dtmodel.end_time
 
+
             # Проверка наличия записей на выбранную дату и временной интервал
             conflicting_records = DTModel.objects.filter(
                 date=selected_date,
                 time__lte=selected_end_time,
                 end_time__gte=selected_start_time,
             ).exclude(id=dtmodel.id)
+
+            # Проверка на прошедшую дату
+            if selected_date < timezone.now().date():
+                messages.error(request, "Вы не можете записаться на прошедшую дату.")
+                return redirect('reg_form:currentRegForm_v2')
 
             if conflicting_records.exists():
                 messages.error(request, "На выбранную дату уже есть другая фотосессия.")
@@ -181,7 +187,8 @@ def delete_record(request, record_id):
 #         form = DTModelForm(instance=record)
 #
 #     return render(request, 'reg_form/edit_record.html', {'form': form, 'record': record})
-from datetime import timedelta
+from datetime import timedelta, datetime
+
 
 @login_required
 def edit_record(request, record_id):
