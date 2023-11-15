@@ -11,6 +11,8 @@ from .forms import DTModelForm, SignupForm
 from django.contrib import messages
 from .forms import Discount
 
+from datetime import timedelta
+
 
 
 # Create your views here.
@@ -60,39 +62,6 @@ def logoutuser(request):
         logout(request)
         return redirect('index')
 
-# @login_required
-# def currentRegForm_v2(request):
-#     if request.method == "POST":
-#         form = DTModelForm(request.POST)
-#         if form.is_valid():
-#             dtmodel = form.save(commit=False)
-#             dtmodel.user = request.user
-#             dtmodel.calculate_duration_and_price()  # Рассчитать стоимость и продолжительность
-#
-#             # Проверка значения favorites
-#             if request.POST.get('favorites'):
-#                 dtmodel.toggle_favorite(request.user)
-#
-#             selected_date = dtmodel.date
-#             discounts = Discount.objects.filter(start_date__lte=selected_date, end_date__gte=selected_date)
-#
-#             if discounts.exists():
-#                 # Применяем первую подходящую скидку
-#                 discount = discounts[0]
-#                 dtmodel.discount = discount
-#                 dtmodel.calculate_duration_and_price()
-#
-#             dtmodel.save()
-#             messages.success(request, "Фотосессия успешно забронирована!")
-#
-#             form = DTModelForm()
-#         else:
-#             print("Error", form.errors)
-#     else:
-#         form = DTModelForm()
-#     return render(request, "reg_form/currentRegForm_v2.html",{'form': form})
-
-
 
 @login_required
 def currentRegForm_v2(request):
@@ -108,20 +77,23 @@ def currentRegForm_v2(request):
                 dtmodel.toggle_favorite(request.user)
 
             selected_date = dtmodel.date
-            selected_start_time = dtmodel.time
-            selected_end_time = dtmodel.end_time
-
+            # selected_start_time = dtmodel.time
+            # selected_end_time = dtmodel.end_time
 
             # Проверка наличия записей на выбранную дату и временной интервал
             conflicting_records = DTModel.objects.filter(
                 date=selected_date,
-                time__lte=selected_end_time,
-                end_time__gte=selected_start_time,
+                # time__lte=selected_end_time,
+                # end_time__gte=selected_start_time,
             ).exclude(id=dtmodel.id)
 
             # Проверка на прошедшую дату
             if selected_date < timezone.now().date():
                 messages.error(request, "Вы не можете записаться на прошедшую дату.")
+                return redirect('reg_form:currentRegForm_v2')
+
+            if dtmodel.time > dtmodel.end_time:
+                messages.error(request, "Время начала фотосессии, должна быть меньше времени конца фотосессии)")
                 return redirect('reg_form:currentRegForm_v2')
 
             if conflicting_records.exists():
@@ -173,21 +145,6 @@ def delete_record(request, record_id):
         return redirect('reg_form:photosessions')
 
     return render(request, 'reg_form/confirm_delete.html', {'record': record})
-
-#edit record
-# def edit_record(request, record_id):
-#     record = get_object_or_404(DTModel, id=record_id)
-#
-#     if request.method == 'POST':
-#         form = DTModelForm(request.POST, instance=record)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('reg_form:photosessions')
-#     else:
-#         form = DTModelForm(instance=record)
-#
-#     return render(request, 'reg_form/edit_record.html', {'form': form, 'record': record})
-from datetime import timedelta, datetime
 
 
 @login_required
