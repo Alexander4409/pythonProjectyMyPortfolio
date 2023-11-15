@@ -60,6 +60,40 @@ def logoutuser(request):
         logout(request)
         return redirect('index')
 
+# @login_required
+# def currentRegForm_v2(request):
+#     if request.method == "POST":
+#         form = DTModelForm(request.POST)
+#         if form.is_valid():
+#             dtmodel = form.save(commit=False)
+#             dtmodel.user = request.user
+#             dtmodel.calculate_duration_and_price()  # Рассчитать стоимость и продолжительность
+#
+#             # Проверка значения favorites
+#             if request.POST.get('favorites'):
+#                 dtmodel.toggle_favorite(request.user)
+#
+#             selected_date = dtmodel.date
+#             discounts = Discount.objects.filter(start_date__lte=selected_date, end_date__gte=selected_date)
+#
+#             if discounts.exists():
+#                 # Применяем первую подходящую скидку
+#                 discount = discounts[0]
+#                 dtmodel.discount = discount
+#                 dtmodel.calculate_duration_and_price()
+#
+#             dtmodel.save()
+#             messages.success(request, "Фотосессия успешно забронирована!")
+#
+#             form = DTModelForm()
+#         else:
+#             print("Error", form.errors)
+#     else:
+#         form = DTModelForm()
+#     return render(request, "reg_form/currentRegForm_v2.html",{'form': form})
+
+
+
 @login_required
 def currentRegForm_v2(request):
     if request.method == "POST":
@@ -67,36 +101,45 @@ def currentRegForm_v2(request):
         if form.is_valid():
             dtmodel = form.save(commit=False)
             dtmodel.user = request.user
-            dtmodel.calculate_duration_and_price()  # Рассчитать стоимость и продолжительность
+            dtmodel.calculate_duration_and_price()
 
             # Проверка значения favorites
             if request.POST.get('favorites'):
                 dtmodel.toggle_favorite(request.user)
 
             selected_date = dtmodel.date
-            discounts = Discount.objects.filter(start_date__lte=selected_date, end_date__gte=selected_date)
+            selected_start_time = dtmodel.time
+            selected_end_time = dtmodel.end_time
 
-            if discounts.exists():
-                # Применяем первую подходящую скидку
-                discount = discounts[0]
-                dtmodel.discount = discount
-                dtmodel.calculate_duration_and_price()
+            # Проверка наличия записей на выбранную дату и временной интервал
+            conflicting_records = DTModel.objects.filter(
+                date=selected_date,
+                time__lte=selected_end_time,
+                end_time__gte=selected_start_time,
+            ).exclude(id=dtmodel.id)
 
-            dtmodel.save()
-            messages.success(request, "Фотосессия успешно забронирована!")
+            if conflicting_records.exists():
+                messages.error(request, "На выбранную дату уже есть другая фотосессия.")
+            else:
+                discounts = Discount.objects.filter(start_date__lte=selected_date, end_date__gte=selected_date)
 
-            form = DTModelForm()
+                if discounts.exists():
+                    # Применяем первую подходящую скидку
+                    discount = discounts[0]
+                    dtmodel.discount = discount
+                    dtmodel.calculate_duration_and_price()
 
+                dtmodel.save()
+                messages.success(request, "Фотосессия успешно забронирована!")
+
+                form = DTModelForm()
         else:
-            print("Error", form.errors)
-
+            messages.error(request, "Пожалуйста, исправьте ошибки в форме.")
 
     else:
         form = DTModelForm()
 
-    return render(request, "reg_form/currentRegForm_v2.html",{'form': form})
-
-
+    return render(request, "reg_form/currentRegForm_v2.html", {'form': form})
 
 
 
