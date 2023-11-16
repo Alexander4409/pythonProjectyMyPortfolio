@@ -1,6 +1,11 @@
 {% extends 'skills/base.html' %}
 
 {% block content %}
+  {% if user.is_authenticated and user.is_staff %}
+    <ul>
+      <li><a href="{% url 'blog:edit_blog' blog_id=blog.id%}">Редактировать запись</a></li>
+    </ul>
+  {% endif %}
 <div class="details">
     <h1>{{ blog.title }}</h1>
     <h3>-- {{ blog.date}} --</h3>

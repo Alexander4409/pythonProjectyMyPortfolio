@@ -63,7 +63,6 @@ img {
     background: rgb(255 255 156);
     padding: 10px;
     border-bottom: 6px solid #FFF;
-    position: sticky;
     top: 10px;
     background-image: url(static);
 }
