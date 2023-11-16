@@ -55,6 +55,9 @@ def loginuser(request):
                            'error': "Неверные данные для входа!"})
         else:
             login(request, user)
+            if user.is_staff:
+                # Если пользователь - админ, перенаправляем его на страницу блога
+                return redirect('blog:create_blog')
             return redirect('reg_form:currentRegForm_v2')
 
 def logoutuser(request):
