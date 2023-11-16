@@ -11,9 +11,7 @@ urlpatterns = [
     path('login/', views.loginuser, name='login'),
 
     #RegForm
-    # path('currentRegForm/', views.currentRegForm, name="currentRegForm"),
     path('currentRegForm_v2/', views.currentRegForm_v2, name="currentRegForm_v2"),
-
     path('photosessions/', views.photosessions, name='photosessions'),
     path('edit/<int:record_id>/', views.edit_record, name='edit_record'),
     path('delete/<int:record_id>/', views.delete_record, name='delete_record'),

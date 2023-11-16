@@ -26,20 +26,28 @@
             <li><a href="{% static 'skills/resume.doc' %}" target="_blank">Резюме</a></li>
         </ul>
         {% if user.is_authenticated %}
-            <ul class="Reg">
-                <li><a href="{% url 'reg_form:currentRegForm_v2' %}">Зарегистрироваться на фотосессию</a> </li>
-                <li><a href="{% url 'reg_form:photosessions' %}">Мои фотосессии</a> </li>
-                <li>
-                    <form action="{% url 'reg_form:logout' %}" method="post">
-                        {% csrf_token %}
-                        <button class="btn_logout">Выйти </button>
-                    </form>
-                </li>
-            </ul>
             {% if user.is_staff %}
             <!-- Дополнительные опции для администратора -->
                 <ul class="AdminOptions">
                     <li><a href="{% url 'blog:create_blog' %}">Добавить блог</a></li>
+                    <li>
+                        <form action="{% url 'reg_form:logout' %}" method="post">
+                            {% csrf_token %}
+                            <button class="btn_logout">Выйти </button>
+                        </form>
+                    </li>
+                </ul>
+            {% endif %}
+            {% if not user.is_staff %}
+                <ul class="Reg">
+                    <li><a href="{% url 'reg_form:currentRegForm_v2' %}">Зарегистрироваться на фотосессию</a> </li>
+                    <li><a href="{% url 'reg_form:photosessions' %}">Мои фотосессии</a> </li>
+                    <li>
+                        <form action="{% url 'reg_form:logout' %}" method="post">
+                            {% csrf_token %}
+                            <button class="btn_logout">Выйти </button>
+                        </form>
+                    </li>
                 </ul>
             {% endif %}
         {% else %}
