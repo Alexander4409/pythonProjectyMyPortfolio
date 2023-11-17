@@ -2,10 +2,7 @@
     font-family: 'Gill Sans', 'Gill Sans MT','Trebuchet MS', sans-serif;
     padding: 0;
     margin: 0;
-    background-image: url("/static/skills/L.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+
 }
 
 
@@ -135,6 +132,11 @@ img {
     box-sizing: border-box;
     background: #fff;
     text-align: center;
+    background-image: url("/static/skills/main.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-size: 100px 200px;
 
 }
 
