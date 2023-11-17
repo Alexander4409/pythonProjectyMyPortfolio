@@ -1,9 +1,14 @@
-body {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+.body {
+    font-family: 'Gill Sans', 'Gill Sans MT','Trebuchet MS', sans-serif;
     padding: 0;
     margin: 0;
-    background-image: url(i);
+    background-image: url("/static/skills/L.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
+
+
 .wrap {
     max-width: 1200px;
     margin: 0 auto;
@@ -60,11 +65,12 @@ img {
 /* menu style */
 
 .menu {
-    background: rgb(255 255 156);
-    padding: 10px;
+    background: rgb(255 216 167);
+    padding: 0px;
     border-bottom: 6px solid #FFF;
-    top: 10px;
+    top: 0px;
     background-image: url(static);
+    position: sticky;
 }
 
 .menu .wrap{
@@ -82,6 +88,7 @@ img {
 
 .menu li{
     margin-left: 40px;
+    list-style-type: none;
 
 }
 .menu a{
@@ -128,6 +135,7 @@ img {
     box-sizing: border-box;
     background: #fff;
     text-align: center;
+
 }
 
 .content h1 {
@@ -138,6 +146,7 @@ img {
 .content p {
     font-size: 18px;
     margin: 20px 0;
+    text-align: justify;
 }
 
 .content form {
@@ -190,17 +199,17 @@ img {
 
 /* Стили для кнопки "Редактировать" */
 .btn.btn-primary {
-    background-color: #007bff; /* Измените цвет фона */
-    color: #fff; /* Измените цвет текста */
-    border: none; /* Удалите границу */
-    padding: 10px 20px; /* Измените отступы */
-    border-radius: 5px; /* Измените скругленность углов */
+    background-color: rgb(25 0 255 / 33%);
+    color: #251954;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
 }
 
 /* Стили для кнопки "Удалить" */
 .btn.btn-danger {
-    background-color: #dc3545; /* Измените цвет фона */
-    color: #fff; /* Измените цвет текста */
+    background-color: rgba(255, 0, 0, 0.438); /* Измените цвет фона */
+    color: #251954; /* Измените цвет текста */
     border: none; /* Удалите границу */
     padding: 10px 20px; /* Измените отступы */
     border-radius: 5px; /* Измените скругленность углов */
