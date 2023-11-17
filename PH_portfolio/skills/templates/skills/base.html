@@ -30,6 +30,8 @@
             <!-- Дополнительные опции для администратора -->
                 <ul class="AdminOptions">
                     <li><a href="{% url 'blog:create_blog' %}">Добавить блог</a></li>
+                    <li><a href="{% url 'reg_form:upcoming_photosessions' %}">Посмотреть фотосессии</a></li>
+                    <li><a href="{% url 'reg_form:manage_discounts' %}">Управление скидками</a> </li>
                     <li>
                         <form action="{% url 'reg_form:logout' %}" method="post">
                             {% csrf_token %}

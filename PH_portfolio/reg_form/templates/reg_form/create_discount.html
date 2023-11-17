@@ -1,0 +1,17 @@
+{% extends 'skills/base.html' %}
+
+{% block content %}
+  <h1>Создание новой скидки</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <!-- Дополнительные поля для заполнения формы -->
+    <p>Пример заполнения значений</p>
+    <p>Дата - "2023-11-20 12:00:00"</p>
+    <p>Скидка - 10</p>
+
+
+    <button type="submit">Создать скидку</button>
+  </form>
+{% endblock %}

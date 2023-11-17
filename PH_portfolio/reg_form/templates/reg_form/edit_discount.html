@@ -1,0 +1,11 @@
+
+{% extends 'skills/base.html' %}
+
+{% block content %}
+  <h1>Изменение скидки</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Сохранить изменения</button>
+  </form>
+{% endblock %}

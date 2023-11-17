@@ -7,12 +7,12 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 
 from .models import DTModel
-from .forms import DTModelForm, SignupForm
+from .forms import DTModelForm, SignupForm, DiscountForm
 from django.contrib import messages
 from .forms import Discount
 
 from datetime import timedelta
-
+from django.contrib.auth.decorators import user_passes_test
 
 
 # Create your views here.
@@ -168,3 +168,54 @@ def edit_record(request, record_id):
 
     return render(request, 'reg_form/edit_record.html', {'form': form, 'record': record})
 
+
+@user_passes_test(lambda u: u.is_staff, login_url='login')  # Проверка, что пользователь - админ
+def upcoming_photosessions(request):
+    upcoming_sessions = DTModel.objects.filter(date__gte=timezone.now()).order_by('date_time')
+    return render(request, 'reg_form/upcoming_photosessions.html', {'upcoming_sessions': upcoming_sessions})
+
+
+@user_passes_test(lambda u: u.is_staff, login_url='login')
+def manage_discounts(request):
+    discounts = Discount.objects.all()
+    active_discount = discounts.filter(start_date__lte=timezone.now(), end_date__gte=timezone.now()).first()
+    create_discount_enabled = active_discount is None
+
+    context = {
+        'discounts': discounts,
+        'create_discount_enabled': create_discount_enabled,
+    }
+
+    return render(request, 'reg_form/manage_discounts.html', context)
+
+@user_passes_test(lambda u: u.is_staff, login_url='login')
+def edit_discount(request, discount_id):
+    discount = get_object_or_404(Discount, pk=discount_id)
+    if request.method == 'POST':
+        form = DiscountForm(request.POST, instance=discount)
+        if form.is_valid():
+            form.save()
+            return redirect('reg_form:manage_discounts')
+    else:
+        form = DiscountForm(instance=discount)
+    return render(request, 'reg_form/edit_discount.html', {'form': form})
+
+@user_passes_test(lambda u: u.is_staff, login_url='login')
+def delete_discount(request, discount_id):
+    discount = get_object_or_404(Discount, pk=discount_id)
+    if request.method == 'POST':
+        discount.delete()
+        return redirect('reg_form:manage_discounts')
+    return render(request, 'reg_form/delete_discount.html', {'discount': discount})
+
+
+@user_passes_test(lambda u: u.is_staff, login_url='login')
+def create_discount(request):
+    if request.method == 'POST':
+        form = DiscountForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('reg_form:manage_discounts')
+    else:
+        form = DiscountForm()
+    return render(request, 'reg_form/create_discount.html', {'form': form})
