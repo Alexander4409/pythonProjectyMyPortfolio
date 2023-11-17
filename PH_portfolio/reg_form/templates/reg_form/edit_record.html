@@ -18,7 +18,9 @@
     <button type="submit">Сохранить изменения</button>
   </form>
 {% endif %}
+<div class="back_to_lst_photosessions">
+  <a href="{% url 'reg_form:photosessions' %} " class="btn btn-primary">Назад к списку фотосессий</a>
+</div>
 
-<a href="{% url 'reg_form:photosessions' %} " class="btn btn-primary">Назад к списку фотосессий</a>
 
 {% endblock %}
