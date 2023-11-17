@@ -1,0 +1,12 @@
+{% extends 'skills/base.html' %}
+
+{% block content %}
+  <h1>Удаление записи</h1>
+  <p>Вы уверены, что хотите удалить запись "{{ blog.title }}"?</p>
+
+  <form method="post" action="{% url 'blog:delete_blog' blog.id %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-secondary">Удалить</button>
+    <a href="{% url 'blog:blogs' %}" class="btn btn-primary">Отмена</a>
+  </form>
+{% endblock %}
