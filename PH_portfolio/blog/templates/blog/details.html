@@ -3,7 +3,7 @@
 {% block content %}
   {% if user.is_authenticated and user.is_staff %}
     <ul>
-      <li><a href="{% url 'blog:edit_blog' blog_id=blog.id%}">Редактировать запись</a></li>
+      <li><a href="{% url 'blog:edit_blog' blog_id=blog.id%}" class="btn btn-primary">Редактировать запись</a></li>
     </ul>
   {% endif %}
 <div class="details">

@@ -7,7 +7,7 @@
 
   {% if user.is_authenticated and user.is_staff %}
     <ul>
-      <li><a href="{% url 'blog:create_blog' %}">Добавить блог</a></li>
+      <li><a href="{% url 'blog:create_blog' %}" class="btn btn-primary">Добавить блог</a></li>
     </ul>
   {% endif %}
 
