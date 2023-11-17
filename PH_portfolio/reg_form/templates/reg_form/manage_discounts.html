@@ -2,14 +2,10 @@
 
 {% block content %}
   <h1>Управление скидками</h1>
-  {% if create_discount_enabled %}
     <div class="sorting-options">
         <p>Создать скидку:</p>
         <a href="{% url 'reg_form:create_discount' %}" class="btn btn-primary">Создать скидку</a>
     </div>
-  {% else %}
-    <p>Нельзя создать новую скидку в период действия другой скидки.</p>
-  {% endif %}
 
   <ul>
     {% for discount in discounts %}
@@ -30,3 +26,4 @@
     {% endfor %}
   </ul>
 {% endblock %}
+

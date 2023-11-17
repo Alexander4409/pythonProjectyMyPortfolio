@@ -54,18 +54,3 @@ class DiscountForm(forms.ModelForm):
         model = Discount
         fields = ['name', 'start_date', 'end_date', 'amount']
 
-    # def clean(self):
-    #     cleaned_data = super().clean()
-    #     start_date = cleaned_data.get('start_date')
-    #     end_date = cleaned_data.get('end_date')
-    #
-    #     # Проверяем, что новая скидка не пересекается с существующими
-    #     existing_discounts = Discount.objects.filter(
-    #         start_date__lte=end_date,
-    #         end_date__gte=start_date
-    #     )
-    #
-    #     if existing_discounts.exists():
-    #         raise forms.ValidationError("Существует скидка в этот период времени")
-    #
-    #     return cleaned_data

@@ -13,7 +13,7 @@ from .forms import Discount
 
 from datetime import timedelta
 from django.contrib.auth.decorators import user_passes_test
-
+from django.db import models
 
 # Create your views here.
 def home(request):
@@ -56,8 +56,8 @@ def loginuser(request):
         else:
             login(request, user)
             if user.is_staff:
-                # Если пользователь - админ, перенаправляем его на страницу блога
-                return redirect('blog:create_blog')
+                # Если пользователь - админ, перенаправляем его на страницу фотосессий
+                return redirect('reg_form:upcoming_photosessions')
             return redirect('reg_form:currentRegForm_v2')
 
 def logoutuser(request):
@@ -139,7 +139,7 @@ def photosessions(request):
 
 
 #delete record
-
+@login_required
 def delete_record(request, record_id):
     record = get_object_or_404(DTModel, id=record_id)
 
@@ -188,6 +188,7 @@ def manage_discounts(request):
 
     return render(request, 'reg_form/manage_discounts.html', context)
 
+
 @user_passes_test(lambda u: u.is_staff, login_url='login')
 def edit_discount(request, discount_id):
     discount = get_object_or_404(Discount, pk=discount_id)
@@ -214,8 +215,21 @@ def create_discount(request):
     if request.method == 'POST':
         form = DiscountForm(request.POST)
         if form.is_valid():
+            new_discount = form.save(commit=False)
+            existing_discounts = Discount.objects.filter(
+                (models.Q(start_date__lte=new_discount.start_date) & models.Q(end_date__gte=new_discount.start_date)) |
+                (models.Q(start_date__lte=new_discount.end_date) & models.Q(end_date__gte=new_discount.end_date)) |
+                (models.Q(start_date__gte=new_discount.start_date) & models.Q(end_date__lte=new_discount.end_date)))
+
+            if existing_discounts.exists():
+                messages.error(request, "Скидка пересекается с существующей скидкой.")
+                return render(request, 'reg_form/create_discount.html', {'form': form})
+
             form.save()
             return redirect('reg_form:manage_discounts')
     else:
         form = DiscountForm()
     return render(request, 'reg_form/create_discount.html', {'form': form})
+
+
+

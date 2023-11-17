@@ -21,9 +21,9 @@
             </a>
         </div>
         <ul>
-            <li><a href="{% url 'index' %}">Главная</a></li>
-            <li><a href="{% url 'blog:blogs' %}">Новостной блог</a></li>
-            <li><a href="{% static 'skills/resume.doc' %}" target="_blank">Резюме</a></li>
+            <li><a href="{% url 'index' %}" class="btn btn-primary">Главная</a></li>
+            <li><a href="{% url 'blog:blogs' %}" class="btn btn-primary">Новостной блог</a></li>
+            <li><a href="{% static 'skills/resume.doc' %}" target="_blank" class="btn btn-primary" >Резюме</a></li>
         </ul>
         {% if user.is_authenticated %}
             {% if user.is_staff %}
