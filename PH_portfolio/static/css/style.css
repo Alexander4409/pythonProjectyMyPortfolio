@@ -1,4 +1,4 @@
-.body {
+body {
     font-family: 'Gill Sans', 'Gill Sans MT','Trebuchet MS', sans-serif;
     padding: 0;
     margin: 0;
@@ -147,7 +147,7 @@ img {
 .content p {
     font-size: 18px;
     margin: 20px 0;
-    text-align: justify;
+    text-align: left;
 }
 
 .content form {
@@ -200,7 +200,7 @@ img {
 
 /* Стили для кнопки "Редактировать" */
 .btn.btn-primary {
-    background-color: rgb(25 0 255 / 33%);
+    background-color: rgb(152,164,132);
     color: #251954;
     border: none;
     padding: 10px 20px;
@@ -343,4 +343,20 @@ img {
     padding: 50px;
 }
 
+/* Общие стили для форм */
+.form-base {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
 
+.form-submit {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}

@@ -7,7 +7,13 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Discount
 
 class SignupForm(UserCreationForm):
-    email = forms.EmailField(max_length=200,help_text="Required")
+    email = forms.EmailField(max_length=200)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].help_text = None
+        self.fields['password1'].help_text = None
+        self.fields['password2'].help_text = None
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2')
@@ -39,6 +45,7 @@ class DTModelForm(ModelForm):
             'date': AdminDateWidget(attrs={'required': False}),
             'time': AdminTimeWidget(attrs={'required': False}),
         }
+
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
