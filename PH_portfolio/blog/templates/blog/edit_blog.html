@@ -7,6 +7,6 @@
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Save Changes</button>
-    <a href="{% url 'blog:delete_blog' blog.id %}" class="btn btn-danger">Удалить</a>
+    <a href="{% url 'blog:delete_blog' blog.id %}" class="btn btn-danger">Delete</a>
   </form>
 {% endblock %}

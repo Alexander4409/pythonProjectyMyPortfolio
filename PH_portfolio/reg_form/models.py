@@ -17,9 +17,10 @@ class Discount(models.Model):
 
 class DTModel(models.Model):
     SESSION_TYPE_CHOICES = (
-        ('standard', 'Стандартная'),
-        ('advanced', 'Продвинутая'),
-        ('premium', 'Премиум'),
+        ('Wedding', 'Wedding photo session'),
+        ('Pet', 'Pet photo session'),
+        ('Love', 'Love story'),
+        ('Studio', 'Studio photo session'),
     )
     name = models.CharField(max_length=64, null=True)
     date = models.DateField(null=True)
@@ -40,12 +41,14 @@ class DTModel(models.Model):
         start_datetime = datetime.combine(self.date, self.time)
         end_datetime = datetime.combine(self.date, self.end_time)
         duration = Decimal((end_datetime - start_datetime).seconds) / Decimal(3600)  # Продолжительность в часах
-        if self.session_type == 'standard':
-            base_price = duration * Decimal(100)
-        elif self.session_type == 'advanced':
-            base_price = duration * Decimal(200)
-        elif self.session_type == 'premium':
-            base_price = duration * Decimal(300)
+        if self.session_type == 'Wedding':
+            base_price = duration * Decimal(310)
+        elif self.session_type == 'Pet':
+            base_price = duration * Decimal(350)
+        elif self.session_type == 'Love':
+            base_price = duration * Decimal(320)
+        elif self.session_type == 'Studio':
+            base_price = duration * Decimal(400)
         else:
             base_price = Decimal(0)  # Обработка других типов
 

@@ -2,11 +2,11 @@
 
 
 {% block content %}
-  <h1>Подтвердите удаление записи</h1>
-  <p>Вы уверены, что хотите удалить запись "{{ record }}"?</p>
+  <h1>Deleting an entry</h1>
+  <p>Are you sure you want to delete the entry  "{{ record }}"?</p>
   <form method="post">
     {% csrf_token %}
-    <button type="submit" class="btn btn-danger">Удалить</button>
-    <a href="{% url 'reg_form:photosessions' %}" class="btn btn-secondary">Отмена</a>
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a href="{% url 'reg_form:photosessions' %}" class="btn btn-secondary">Сancel</a>
   </form>
 {% endblock %}

@@ -46,7 +46,6 @@ class DTModelForm(ModelForm):
             'time': AdminTimeWidget(attrs={'required': False}),
         }
 
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['date_time'].widget = forms.HiddenInput()

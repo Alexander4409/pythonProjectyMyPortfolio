@@ -6,7 +6,7 @@
 {% block content %}
 
 
-<h1>Выберете дату проведение вашей фотосесии</h1>
+<h1>Сhoose the date for the photo shoot</h1>
 
 {% if messages %}
     <ul class="messages">
@@ -21,6 +21,7 @@
         {% csrf_token %}
         {{ form.media }}
         {{ form.as_p }}
-        <input type="submit" name="Submit" id="submit" class="btn btn-primary">
+        <button class="btn btn-primary">Register</button>
     </form>
+
 {% endblock %}

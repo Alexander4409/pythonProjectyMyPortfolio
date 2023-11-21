@@ -7,7 +7,7 @@
 <div class="img">
     <img src="{% static 'skills/L.jpg' %}">
 </div>
-<h2>Типы фотосессий</h2>
+<h2>Photo sessions type</h2>
 <div class="block">
     {% for skill in skills %}
     <div class="element">
@@ -15,7 +15,7 @@
         <div class="text">
             <h2><a href="{{ skill.url }}" target="_blank">{{ skill.title }}</a></h2>
             <p>{{ skill.description }}</p>
-             <p>Стоимость: {{ skill.price_per_hour }} $ в час</p>
+             <p>Priсe: {{ skill.price_per_hour }} $ в час</p>
         </div>
     </div>
     {% endfor %}

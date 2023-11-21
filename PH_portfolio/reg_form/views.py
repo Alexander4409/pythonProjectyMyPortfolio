@@ -1,3 +1,4 @@
+from django.core.serializers import serialize
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
@@ -15,11 +16,13 @@ from datetime import timedelta
 from django.contrib.auth.decorators import user_passes_test
 from django.db import models
 
+from django.http import JsonResponse
+
 # Create your views here.
 def home(request):
-    return render(request,'index')
+    return render(request, 'index')
 
-#рабочая регистрация
+# Working registration
 def signupuser(request):
     if request.method == "GET":
         return render(request, "reg_form/signupuser.html", {'form': SignupForm()})
@@ -28,7 +31,7 @@ def signupuser(request):
             try:
                 user = User.objects.create_user(
                     request.POST['username'],
-                    email=request.POST['email'],  # Добавьте эту строку для включения адреса электронной почты
+                    email=request.POST['email'],  # Add this line to include email address
                     password=request.POST['password1']
                 )
                 user.save()
@@ -36,29 +39,30 @@ def signupuser(request):
                 return redirect('reg_form:currentRegForm_v2')
             except IntegrityError:
                 return render(request, "reg_form/signupuser.html", {'form': SignupForm(),
-                                                                    "error": "Такой пользователь уже существует"})
+                                                                    "error": "User already exists"})
         else:
             return render(request, "reg_form/signupuser.html",
                           {'form': SignupForm(),
-                           "error": "Пароли не совпадают!"})
+                           "error": "Passwords do not match!"})
 
 
 def loginuser(request):
     if request.method == "GET":
-        return render(request, 'reg_form/loginuser.html',{"form": AuthenticationForm()} )
+        return render(request, 'reg_form/loginuser.html', {"form": AuthenticationForm()})
     else:
         user = authenticate(request, username=request.POST['username'],
                             password=request.POST['password'])
         if user is None:
-            return render(request,'reg_form/loginuser.html',
+            return render(request, 'reg_form/loginuser.html',
                           {"form": AuthenticationForm(),
-                           'error': "Неверные данные для входа!"})
+                           'error': "Invalid login credentials!"})
         else:
             login(request, user)
             if user.is_staff:
-                # Если пользователь - админ, перенаправляем его на страницу фотосессий
+                # If the user is an admin, redirect to the photosessions page
                 return redirect('reg_form:upcoming_photosessions')
             return redirect('reg_form:currentRegForm_v2')
+
 
 def logoutuser(request):
     if request.method == "POST":
@@ -75,53 +79,48 @@ def currentRegForm_v2(request):
             dtmodel.user = request.user
             dtmodel.calculate_duration_and_price()
 
-            # Проверка значения favorites
+            # Check the value of favorites
             if request.POST.get('favorites'):
                 dtmodel.toggle_favorite(request.user)
 
             selected_date = dtmodel.date
-            # selected_start_time = dtmodel.time
-            # selected_end_time = dtmodel.end_time
 
-            # Проверка наличия записей на выбранную дату и временной интервал
+            # Check for entries on the selected date and time interval
             conflicting_records = DTModel.objects.filter(
                 date=selected_date,
-                # time__lte=selected_end_time,
-                # end_time__gte=selected_start_time,
             ).exclude(id=dtmodel.id)
 
-            # Проверка на прошедшую дату
+            # Check for a past date
             if selected_date < timezone.now().date():
-                messages.error(request, "Вы не можете записаться на прошедшую дату.")
+                messages.error(request, "You cannot book a session for a past date.")
                 return redirect('reg_form:currentRegForm_v2')
 
             if dtmodel.time > dtmodel.end_time:
-                messages.error(request, "Время начала фотосессии, должна быть меньше времени конца фотосессии)")
+                messages.error(request, "Start time of the session should be earlier than the end time.")
                 return redirect('reg_form:currentRegForm_v2')
 
             if conflicting_records.exists():
-                messages.error(request, "На выбранную дату уже есть другая фотосессия.")
+                messages.error(request, "There is already another session on the selected date.")
             else:
                 discounts = Discount.objects.filter(start_date__lte=selected_date, end_date__gte=selected_date)
 
                 if discounts.exists():
-                    # Применяем первую подходящую скидку
+                    # Apply the first applicable discount
                     discount = discounts[0]
                     dtmodel.discount = discount
                     dtmodel.calculate_duration_and_price()
 
                 dtmodel.save()
-                messages.success(request, "Фотосессия успешно забронирована!")
+                messages.success(request, "Session successfully booked!")
 
                 form = DTModelForm()
         else:
-            messages.error(request, "Пожалуйста, исправьте ошибки в форме.")
+            messages.error(request, "Please correct the errors in the form.")
 
     else:
         form = DTModelForm()
 
     return render(request, "reg_form/currentRegForm_v2.html", {'form': form})
-
 
 
 @login_required
@@ -138,7 +137,7 @@ def photosessions(request):
     return render(request, 'reg_form/photosessions.html', {'blogs': photo_S, 'user': request.user, 'sort_by': sort_by})
 
 
-#delete record
+# Delete record
 @login_required
 def delete_record(request, record_id):
     record = get_object_or_404(DTModel, id=record_id)
@@ -154,9 +153,10 @@ def delete_record(request, record_id):
 def edit_record(request, record_id):
     record = get_object_or_404(DTModel, id=record_id)
 
-    # Проверяем, можно ли редактировать запись
+    # Check if the record can be edited
     if record.date - timedelta(days=3) < timezone.now().date():
-        return render(request, 'reg_form/edit_record.html', {'record': record, 'error_message': 'Нельзя редактировать запись за 3 дня до начала фотосессии.'})
+        return render(request, 'reg_form/edit_record.html', {'record': record, 'error_message': 'You cannot edit a record within 3 days of the session start.'})
+
 
     if request.method == 'POST':
         form = DTModelForm(request.POST, instance=record)
@@ -169,9 +169,9 @@ def edit_record(request, record_id):
     return render(request, 'reg_form/edit_record.html', {'form': form, 'record': record})
 
 
-@user_passes_test(lambda u: u.is_staff, login_url='login')  # Проверка, что пользователь - админ
+@user_passes_test(lambda u: u.is_staff, login_url='login')  # Check if the user is an admin
 def upcoming_photosessions(request):
-    upcoming_sessions = DTModel.objects.filter(date__gte=timezone.now()).order_by('date_time')
+    upcoming_sessions = DTModel.objects.filter(date__gte=timezone.now()).order_by('-date')
     return render(request, 'reg_form/upcoming_photosessions.html', {'upcoming_sessions': upcoming_sessions})
 
 
@@ -201,6 +201,7 @@ def edit_discount(request, discount_id):
         form = DiscountForm(instance=discount)
     return render(request, 'reg_form/edit_discount.html', {'form': form})
 
+
 @user_passes_test(lambda u: u.is_staff, login_url='login')
 def delete_discount(request, discount_id):
     discount = get_object_or_404(Discount, pk=discount_id)
@@ -222,7 +223,7 @@ def create_discount(request):
                 (models.Q(start_date__gte=new_discount.start_date) & models.Q(end_date__lte=new_discount.end_date)))
 
             if existing_discounts.exists():
-                messages.error(request, "Скидка пересекается с существующей скидкой.")
+                messages.error(request, "The discount overlaps with an existing discount.")
                 return render(request, 'reg_form/create_discount.html', {'form': form})
 
             form.save()
@@ -230,6 +231,4 @@ def create_discount(request):
     else:
         form = DiscountForm()
     return render(request, 'reg_form/create_discount.html', {'form': form})
-
-
 

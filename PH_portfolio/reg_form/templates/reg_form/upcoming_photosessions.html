@@ -1,20 +1,20 @@
 {% extends 'skills/base.html' %}
 
 {% block content %}
-  <h1>Ближайшие фотосессии</h1>
+  <h1>Upcoming Photosessions</h1>
 
   <ul>
     {% for session in upcoming_sessions %}
       <li>
         <div class="element">
           <h2 class="top">
-            <p>Пользователь: {{ session.user.username }}</p>
+            <p>User name: {{ session.user.username }}</p>
           </h2>
           <div class="blog_text">
-            <p>Дата: {{ session.date }}</p>
-            <p>Время: {{ session.time }} - {{ session.end_time }}</p>
-            <p>Стоимость: {{ session.price }}</p>
-            <p>Продолжительность: {{ session.duration }} часов</p>
+            <p>Date: {{ session.date }}</p>
+            <p>Time: {{ session.time }} - {{ session.end_time }}</p>
+            <p>Cost: {{ session.price }}</p>
+            <p>Duration: {{ session.duration }} hours</p>
           </div>
         </div>
         <hr>
@@ -22,4 +22,5 @@
     {% endfor %}
   </ul>
 {% endblock %}
+
 

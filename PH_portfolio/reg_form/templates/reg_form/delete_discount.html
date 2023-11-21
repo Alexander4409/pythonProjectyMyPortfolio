@@ -1,10 +1,10 @@
 {% extends 'skills/base.html' %}
 
 {% block content %}
-  <h1>Удаление скидки</h1>
-  <p>Вы уверены, что хотите удалить скидку "{{ discount.name }}"?</p>
+  <h1>Discount deleting</h1>
+  <p>Are you sure you want to delete the discount "{{ discount.name }}"?</p>
   <form method="post">
     {% csrf_token %}
-    <button type="submit" class="btn btn-danger">Удалить</button>
+    <button type="submit" class="btn btn-danger">Delete</button>
   </form>
 {% endblock %}

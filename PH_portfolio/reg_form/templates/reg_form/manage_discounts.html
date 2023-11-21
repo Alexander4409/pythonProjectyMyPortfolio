@@ -1,25 +1,24 @@
 {% extends 'skills/base.html' %}
 
 {% block content %}
-  <h1>Управление скидками</h1>
+  <h1>Discount management</h1>
     <div class="sorting-options">
-        <p>Создать скидку:</p>
-        <a href="{% url 'reg_form:create_discount' %}" class="btn btn-primary">Создать скидку</a>
+        <a href="{% url 'reg_form:create_discount' %}" class="btn btn-primary">Сreate a discount</a>
     </div>
 
   <ul>
     {% for discount in discounts %}
       <div class="element">
         <h2 class="top">
-          <p>Название: {{ discount.name }}</p>
+          <p>Discount name: {{ discount.name }}</p>
         </h2>
         <div class="blog_text">
-          <p>Начало скидки: {{ discount.start_date }}</p>
-          <p>Окончание скидки: {{ discount.end_date }}</p>
-          <p>Размер скидки: {{ discount.amount }}%</p>
+          <p>Discount start time: {{ discount.start_date }}</p>
+          <p>Discount end time: {{ discount.end_date }}</p>
+          <p>Discount amount: {{ discount.amount }}%</p>
           <div class="btn_delet_rewrite">
-            <a href="{% url 'reg_form:edit_discount' discount.id %}" class="btn btn-primary">Изменить</a>
-            <a href="{% url 'reg_form:delete_discount' discount.id %}" class="btn btn-danger">Удалить</a>
+            <a href="{% url 'reg_form:edit_discount' discount.id %}" class="btn btn-primary">Сhange</a>
+            <a href="{% url 'reg_form:delete_discount' discount.id %}" class="btn btn-danger">Delete</a>
           </div>
         </div>
       </div>

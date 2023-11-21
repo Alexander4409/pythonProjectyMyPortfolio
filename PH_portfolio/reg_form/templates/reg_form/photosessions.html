@@ -4,38 +4,36 @@
 
 {% block content %}
 
+<h1>User's Photosessions: {{ request.user.username }}</h1>
 
-<h1>Фотосессии пользователя {{ request.user.username }}</h1>
-
-<h2>Количество фотосессий: {{ blogs.count }}</h2>
+<h2>Number of Photosessions: {{ blogs.count }}</h2>
 
 <div class="sorting-options">
-    <p>Сортировать по:</p>
-    <a href="?sort_by=booking_date" class="btn btn-primary">Дата бронирования</a> |
-    <a href="?sort_by=photosession_date" class="btn btn-primary">Дата проведения фотосессии</a>
+    <p>Sort by:</p>
+    <a href="?sort_by=booking_date" class="btn btn-primary">Booking Date</a> |
+    <a href="?sort_by=photosession_date" class="btn btn-primary">Photosession Date</a>
 </div>
-
 
 <ul>
   {% for DTModel_instance in blogs %}
     <div class="element">
         <h2 class="top">
-            <p> Имя : {{ DTModel_instance.name }}</p>
+            <p>Name: {{ DTModel_instance.name }}</p>
         </h2>
         <div class="blog_text">
-            <p>Дата и время бронирования: {{ DTModel_instance.date_time }}</p>
-            <p>Выбранная дата и время: {{ DTModel_instance.date }} в {{ DTModel_instance.time }}</p>
-            <p>Время окончания: {{ DTModel_instance.end_time }}</p>
-            <p>Продолжительность: {{ DTModel_instance.duration }} часов</p>
-            <p>Стоимость: {{ DTModel_instance.price }} руб.</p>
+            <p>Booking Date and Time: {{ DTModel_instance.date_time }}</p>
+            <p>Selected Date and Time: {{ DTModel_instance.date }} at {{ DTModel_instance.time }}</p>
+            <p>End Time: {{ DTModel_instance.end_time }}</p>
+            <p>Duration: {{ DTModel_instance.duration }} hours</p>
+            <p>Cost: {{ DTModel_instance.price }} rubles</p>
             <div class="btn_delet_rewrite">
-                <a href="{% url 'reg_form:edit_record' DTModel_instance.id %}" class="btn btn-primary">Редактировать</a>
-                <a href="{% url 'reg_form:delete_record' DTModel_instance.id %}" class="btn btn-danger">Удалить</a>
+                <a href="{% url 'reg_form:edit_record' DTModel_instance.id %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'reg_form:delete_record' DTModel_instance.id %}" class="btn btn-danger">Delete</a>
             </div>
         </div>
     </div>
   {% endfor %}
 </ul>
 
-
 {% endblock %}
+

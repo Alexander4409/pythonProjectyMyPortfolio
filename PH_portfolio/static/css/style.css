@@ -76,6 +76,7 @@ img {
     justify-content: space-between;
     align-items: center;
     max-width: 1800px;
+    max-height: 80px;
 }
 .menu ul{
     display: flex;
@@ -94,7 +95,7 @@ img {
     text-decoration: none;
 }
 .menu img{
-    max-width: 100px;
+    max-width: 65px;
 }
 
 /* Стили для раздела с сортировкой */
@@ -205,6 +206,7 @@ img {
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 /* Стили для кнопки "Удалить" */
@@ -214,6 +216,7 @@ img {
     border: none; /* Удалите границу */
     padding: 10px 20px; /* Измените отступы */
     border-radius: 5px; /* Измените скругленность углов */
+    cursor: pointer;
 }
 .btn_delet_rewrite {
     text-align: center;
@@ -246,7 +249,9 @@ img {
     content: "➜"; /* Добавить символ перед каждым абзацем */
     margin-right: 5px; /* Расстояние между символом и текстом */
 }
-
+.count {
+    padding-bottom: 20px;
+}
 
 /* Стили для формы DTForm */
 .form-dt {

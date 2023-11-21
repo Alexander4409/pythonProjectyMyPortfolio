@@ -2,14 +2,8 @@
 {% extends 'skills/base.html' %}
 
 {% block content %}
-  <h1>Блог</h1>
-  <h2 class="count">Постов: {{ blogs.count }}</h2>
-
-  {% if user.is_authenticated and user.is_staff %}
-    <ul>
-      <li><a href="{% url 'blog:create_blog' %}" class="btn btn-primary">Добавить блог</a></li>
-    </ul>
-  {% endif %}
+  <h1>Blog</h1>
+  <h2 class="count">Posts: {{ blogs.count }}</h2>
 
   {% for blog in blogs %}
     <div class="element">

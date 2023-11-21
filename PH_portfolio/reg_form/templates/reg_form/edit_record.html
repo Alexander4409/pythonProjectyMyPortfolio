@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<h1>Редактирование записи</h1>
+<h1>Editing a post</h1>
 
 {% if error_message %}
   <p>{{ error_message }}</p>
@@ -15,11 +15,11 @@
     {% csrf_token %}
     {{ form.media }}
     {{ form.as_p }}
-    <button type="submit">Сохранить изменения</button>
+    <button type="submit">Save changes</button>
   </form>
 {% endif %}
 <div class="back_to_lst_photosessions">
-  <a href="{% url 'reg_form:photosessions' %} " class="btn btn-primary">Назад к списку фотосессий</a>
+  <a href="{% url 'reg_form:photosessions' %} " class="btn btn-primary">Back to the list of photo sessions</a>
 </div>
 
 

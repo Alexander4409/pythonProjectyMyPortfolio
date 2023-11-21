@@ -2,10 +2,10 @@
 {% extends 'skills/base.html' %}
 
 {% block content %}
-  <h1>Изменение скидки</h1>
+  <h1>Changing the discount</h1>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" class="btn btn-secondary">Сохранить изменения</button>
+    <button type="submit" class="btn btn-secondary">Save changes</button>
   </form>
 {% endblock %}
