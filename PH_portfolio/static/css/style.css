@@ -2,9 +2,8 @@ body {
     font-family: 'Gill Sans', 'Gill Sans MT','Trebuchet MS', sans-serif;
     padding: 0;
     margin: 0;
-
+    height: 100%;
 }
-
 
 .wrap {
     max-width: 1200px;
@@ -51,10 +50,7 @@ body {
     margin-bottom: 60px;
     border-radius: 25px;
 }
-/* .img img{
-    border: 6px solid #beffc788;
-    border-radius: 25px;
-} */
+
 
 img {
     border-radius: 25px;
@@ -62,7 +58,7 @@ img {
 /* menu style */
 
 .menu {
-    background: rgb(255 216 167);
+    background: #f7fbafb8;
     padding: 0px;
     border-bottom: 6px solid #FFF;
     top: 0px;
@@ -150,6 +146,7 @@ img {
     margin: 20px 0;
     text-align: left;
 }
+
 
 .content form {
     margin-top: 20px;
@@ -272,7 +269,7 @@ img {
 /* Стили для формы регистрации */
 .form-register {
     background-color: #fff;
-    padding: 20px;
+    padding: 50px;
     border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-width: 400px; /* Ограничьте максимальную ширину формы */
@@ -311,7 +308,7 @@ img {
 /* Стили для формы авторизации */
 .form-auth {
     background-color: #fff;
-    padding: 20px;
+    padding: 50px;
     border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-width: 400px;
@@ -365,5 +362,211 @@ img {
     border-radius: 4px;
     cursor: pointer;
 }
+
+/*footer*/
+.footer_menu{
+  margin: 0 auto;
+  padding: 50px 100px 40px 140px;
+  background-color: #f7fbafb8;
+  min-height: 20vh;
+
+}
+
+.footer_logo{
+  position: relative;
+  top: 37px;
+}
+.menu_footer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  margin: 10px;
+  color: rgb(70, 70, 70);
+
+}
+
+.menu_F a{
+
+  margin: 15px;
+  box-sizing: border-box;
+  color: #303032;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.footer_contacts{
+  display: flex;
+  align-items: flex-start;
+  padding-bottom: 15px;
+
+}
+.F_contacts {
+  display: flex;
+  padding-right: 40px;
+  cursor: pointer;
+}
+.contact{
+  padding-left: 10px;
+}
+.footer-Callium{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  display: flex;
+  justify-content: end;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 15px;
+  text-align: center;
+  color: #a9a9a9;
+}
+/*футер медиа запросы*/
+
+@media (max-width: 1200px) {
+  .footer_menu {
+      max-width: 950px;
+      margin: 0 auto;
+      padding-top: 200px;
+    }
+}
+@media (max-width: 990px) {
+  .footer_menu {
+      max-width: 700px;
+      margin-left: 55px;
+      padding-top: 200px;
+
+    }
+  .footer_contacts{
+    position: relative;
+    bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding-bottom: 15px;
+  }
+  .menu_footer {
+    position: relative;
+    top: 90px;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: left;
+    color: rgb(70, 70, 70);
+  }
+  .menu_F{
+    position: relative;
+    right: 20px;
+    bottom: 20px;
+    margin: 10px;
+  }
+  .F_contacts{
+    padding-bottom: 25px;
+  }
+  .footer_logo{
+    position: relative;
+    top: 20px;
+  }
+  .footer_line{
+    background-image: url(../img/Images_page2/Vector\ 2small.svg);
+  }/*Линия не видна*/
+  .footer-Callium{
+    padding-bottom: 10px;
+  }
+}
+@media (max-width: 580px) {
+  .footer_contacts {
+    position: relative;
+    bottom: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding-bottom: 15px;
+
+  }
+    .menu_footer {
+      position: relative;
+      top: 90px;
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      justify-content: left;
+      color: rgb(70, 70, 70);
+    }
+}
+
+@media (max-width: 470px) {
+  .footer_contacts {
+  position: relative;
+  bottom: 75px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  padding-bottom: 15px;
+}
+ .menu_footer {
+   position: relative;
+   top: 120px;
+   display: flex;
+   align-items: flex-start;
+   flex-wrap: wrap;
+   justify-content: left;
+   color: rgb(70, 70, 70);
+ }
+}
+@media (max-width: 340px) {
+  .footer_contacts {
+    position: relative;
+    bottom: 115px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding-bottom: 15px;
+  }
+}
+
+@media (max-width: 1200px) {
+    .menu .wrap {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1800px;
+        max-height: 140px;
+}
+
+
+
+/* Добавление стилей для мобильных устройств */
+@media (max-width: 1000px) {
+    .menu {
+        padding: 10px; /* Уменьшить внутренний отступ меню на маленьких экранах */
+    }
+
+    .menu ul {
+        flex-direction: column; /* Отображение элементов списка вертикально на маленьких экранах */
+        align-items: center; /* Центрирование элементов списка */
+        flex-direction: column;
+    }
+
+    .menu li {
+        margin: 10px 0; /* Увеличить отступы между пунктами меню на маленьких экранах */
+        padding-bottom: 30px;
+    }
+
+
+
+    .menu .wrap {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: stretch;
+        max-width: 1800px;
+        max-height: 244px;
+        align-content: space-between;
+    }
 
 }

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'skills.apps.SkillsConfig',
+    'portfolio.apps.PortfolioConfig',
     'blog.apps.BlogConfig',
     'reg_form.apps.RegFormConfig',
     'allauth',

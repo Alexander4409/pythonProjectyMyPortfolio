@@ -14,10 +14,13 @@
         <img src="{{ skill.image.url }}" alt="">
         <div class="text">
             <h2><a href="{{ skill.url }}" target="_blank">{{ skill.title }}</a></h2>
-            <p>{{ skill.description }}</p>
+            <p class="description">{{ skill.description }}</p>
              <p>Priсe: {{ skill.price_per_hour }} $ в час</p>
         </div>
     </div>
     {% endfor %}
 </div>
+
+
+
 {% endblock %}
