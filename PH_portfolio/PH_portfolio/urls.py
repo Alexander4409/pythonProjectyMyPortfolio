@@ -26,6 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('blog/', include('blog.urls')),
+    path('portfolio/', include('portfolio.urls')),
     path('reg_form/', include('reg_form.urls')),
     path("jsi18n", JavaScriptCatalog.as_view(), name='js-catlog')
 

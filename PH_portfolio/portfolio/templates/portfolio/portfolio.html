@@ -1,0 +1,19 @@
+<!-- portfolio/templates/portfolio/portfolio.html -->
+{% extends 'skills/base.html' %}
+
+{% block content %}
+  <h1>Portfolio</h1>
+
+  {% for photo in photos %}  <!-- изменено имя переменной на 'photo' -->
+    <div class="element">
+      <h2 class="top">
+        <a href="{% url 'portfolio:photo_details' photo.id %}">
+          {{ photo.title }}
+        </a>
+      </h2>
+      <div>
+        <h3>{{ photo.image }}</h3>  <!-- изменено поле 'date' на 'photo.date' -->
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}

@@ -21,7 +21,7 @@
         {% csrf_token %}
         {{ form.media }}
         {{ form.as_p }}
-        <div id="calendar" data-dates="{{ booked_dates }}"></div>
+        <div id="calendar" data-dates="{{ booked_dates }}" class="booked-dates"></div>
         <button class="btn btn-primary">Register</button>
     </form>
 

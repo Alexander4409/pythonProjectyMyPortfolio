@@ -601,3 +601,15 @@ select + .related-widget-wrapper-link,
     width: 600px;
     height: 400px;
 }
+/* Красный цвет для дат с записями */
+.calendar td.booked-date a {
+    background: red; /* Используйте ваш цвет по желанию */
+    color: white;
+}
+
+/* При фокусировке или наведении измените стили */
+.calendar td.booked-date a:focus,
+.calendar td.booked-date a:hover {
+    background: darkred; /* Используйте ваш цвет по желанию */
+    color: white;
+}
