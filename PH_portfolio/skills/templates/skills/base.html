@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
+    <!-- Bootstrap CSS и JS из CDN -->
+
 </head>
 <body>
 <div class="menu">
@@ -25,6 +27,7 @@
             <li><a href="{% url 'index' %}" class="btn btn-primary">Main</a></li>
             <li><a href="{% url 'blog:blogs' %}" class="btn btn-primary">Blog</a></li>
             <li><a href="{% static 'skills/resume.doc' %}" target="_blank" class="btn btn-primary">Summary</a></li>
+            <li><a href="{% url 'portfolio:slider' %}" class="btn btn-primary">Portfolio</a></li>
         </ul>
         {% if user.is_authenticated %}
             {% if user.is_staff %}

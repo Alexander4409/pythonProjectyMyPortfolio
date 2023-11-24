@@ -27,7 +27,8 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('blog/', include('blog.urls')),
     path('reg_form/', include('reg_form.urls')),
-    path("jsi18n", JavaScriptCatalog.as_view(), name='js-catlog')
+    path("jsi18n", JavaScriptCatalog.as_view(), name='js-catlog'),
+    path('portfolio/', include('portfolio.urls')),
 
 
 ]

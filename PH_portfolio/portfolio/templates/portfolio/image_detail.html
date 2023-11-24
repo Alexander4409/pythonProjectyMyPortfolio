@@ -1,0 +1,6 @@
+{% extends 'skills/base.html' %}
+
+{% block content %}
+  <h2>{{ photo.title }}</h2>
+  <img src="{{ photo.images.first.image.url }}" alt="{{ photo.title }}" class="img-fluid">
+{% endblock %}
