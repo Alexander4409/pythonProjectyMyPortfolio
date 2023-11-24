@@ -133,6 +133,7 @@ img {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    min-height: 100%;
 
 }
 
@@ -368,7 +369,6 @@ img {
   margin: 0 auto;
   padding: 50px 100px 40px 140px;
   background-color: #f7fbafb8;
-  min-height: 20vh;
 
 }
 
@@ -433,13 +433,7 @@ img {
       padding-top: 200px;
     }
 }
-@media (max-width: 990px) {
-  .footer_menu {
-      max-width: 700px;
-      margin-left: 55px;
-      padding-top: 200px;
 
-    }
   .footer_contacts{
     position: relative;
     bottom: 30px;

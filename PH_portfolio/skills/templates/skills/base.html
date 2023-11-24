@@ -22,8 +22,8 @@
             </a>
         </div>
         <ul>
-            <li><a href="{% url 'index' %}" class="btn btn-primary">Skills</a></li>
-            <li><a href="{% url 'blog:blogs' %}" class="btn btn-primary">News blog</a></li>
+            <li><a href="{% url 'index' %}" class="btn btn-primary">Main</a></li>
+            <li><a href="{% url 'blog:blogs' %}" class="btn btn-primary">Blog</a></li>
             <li><a href="{% static 'skills/resume.doc' %}" target="_blank" class="btn btn-primary">Summary</a></li>
         </ul>
         {% if user.is_authenticated %}
@@ -85,7 +85,7 @@
       </div>
 
       <div class="footer-Callium">
-        © 2023 «PhotoFusy» — Website for registration for a photo shoot. All rights reserved.
+        © 2023 «PhotoFusy» — Website for a photo shoot. All rights reserved.
       </div>
 </footer>
 

@@ -25,7 +25,7 @@
             <p>Selected Date and Time: {{ DTModel_instance.date }} at {{ DTModel_instance.time }}</p>
             <p>End Time: {{ DTModel_instance.end_time }}</p>
             <p>Duration: {{ DTModel_instance.duration }} hours</p>
-            <p>Cost: {{ DTModel_instance.price }} rubles</p>
+            <p>Cost: {{ DTModel_instance.price }} $</p>
             <div class="btn_delet_rewrite">
                 <a href="{% url 'reg_form:edit_record' DTModel_instance.id %}" class="btn btn-primary">Edit</a>
                 <a href="{% url 'reg_form:delete_record' DTModel_instance.id %}" class="btn btn-danger">Delete</a>
