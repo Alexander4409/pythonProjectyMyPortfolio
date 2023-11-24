@@ -6,7 +6,7 @@
   <p>Are you sure you want to delete the entry  "{{ record }}"?</p>
   <form method="post">
     {% csrf_token %}
-    <button type="submit" class="btn btn-danger">Delete</button>
+    <button class="btn btn-danger">Delete</button>
     <a href="{% url 'reg_form:photosessions' %}" class="btn btn-secondary">Сancel</a>
   </form>
 {% endblock %}

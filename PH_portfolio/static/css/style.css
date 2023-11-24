@@ -63,7 +63,7 @@ img {
     border-bottom: 6px solid #FFF;
     top: 0px;
     background-image: url(static);
-    position: sticky;
+
 }
 
 .menu .wrap{
@@ -72,7 +72,7 @@ img {
     justify-content: space-between;
     align-items: center;
     max-width: 1800px;
-    max-height: 80px;
+    max-height: 100px;
 }
 .menu ul{
     display: flex;
@@ -134,6 +134,9 @@ img {
     background-position: center;
     background-size: cover;
     min-height: 100%;
+    padding-top: 40px
+;
+
 
 }
 
@@ -522,7 +525,7 @@ img {
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1500px) {
     .menu .wrap {
         display: flex;
         flex-wrap: wrap;
@@ -530,19 +533,21 @@ img {
         align-items: center;
         max-width: 1800px;
         max-height: 140px;
+    }
 }
 
-
+#id_session_type {
+    height: 40px;
+}
 
 /* Добавление стилей для мобильных устройств */
-@media (max-width: 1000px) {
+@media (max-width: 1300px) {
     .menu {
         padding: 10px; /* Уменьшить внутренний отступ меню на маленьких экранах */
     }
 
     .menu ul {
         flex-direction: column; /* Отображение элементов списка вертикально на маленьких экранах */
-        align-items: center; /* Центрирование элементов списка */
         flex-direction: column;
     }
 
@@ -559,8 +564,40 @@ img {
         justify-content: center;
         align-items: stretch;
         max-width: 1800px;
-        max-height: 244px;
+        max-height: 400px;
         align-content: space-between;
     }
 
 }
+
+
+
+/* messages */
+.message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.warning {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+
+

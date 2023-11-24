@@ -5,6 +5,6 @@
   <p>Are you sure you want to delete the discount "{{ discount.name }}"?</p>
   <form method="post">
     {% csrf_token %}
-    <button type="submit" class="btn btn-danger">Delete</button>
+    <button class="btn btn-danger">Delete</button>
   </form>
 {% endblock %}
