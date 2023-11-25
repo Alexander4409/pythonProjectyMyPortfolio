@@ -56,7 +56,7 @@
 
 - Язык программирования: Python, JavaScript
 - Фреймворк: Django
-- База данных: SQLight
+- База данных: SQLite
 - Другие зависимости: Библиотеки: datatime, Decimal, AdminDateWidget, AdminTimeWidget, AdminSplitDateTime, telebot, beautifulsoup4. Разметка: CSS, HTML.
 
 ## Установка
