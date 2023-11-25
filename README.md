@@ -1,7 +1,7 @@
 # PH_photofusy
 ## Предпросмотр главной страницы и страницы с портфолио
-![Screenshot](static/base/homepage-preview.png)
-![Screenshot](static/base/portfolio-preview.png)
+![Screenshot](PH_portfolio/static/base/homepage-preview.png)
+![Screenshot](PH_portfolio/static/base/portfolio-preview.png)
 
 ## Введение
 
