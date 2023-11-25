@@ -7,6 +7,7 @@
   <form method="post">
     {% csrf_token %}
     <button class="btn btn-danger">Delete</button>
-    <a href="{% url 'reg_form:photosessions' %}" class="btn btn-secondary">Сancel</a>
+    <a href="{% url 'reg_form:photosessions' %}" class="btn btn-primary">Сancel</a>
+
   </form>
 {% endblock %}
