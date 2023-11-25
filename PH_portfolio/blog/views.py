@@ -38,6 +38,7 @@ def edit_blog(request, blog_id):
         form = BlogForm(instance=blog)
     return render(request, 'blog/edit_blog.html', {'form': form, 'blog': blog})
 
+
 @user_passes_test(lambda u: u.is_staff)
 def delete_blog(request, blog_id):
     blog = get_object_or_404(Blog, pk=blog_id)

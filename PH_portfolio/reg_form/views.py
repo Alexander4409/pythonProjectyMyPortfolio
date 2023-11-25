@@ -217,6 +217,7 @@ def create_discount(request):
         form = DiscountForm(request.POST)
         if form.is_valid():
             new_discount = form.save(commit=False)
+            # Поиск существующих скидок, которые перекрываются с новой скидкой по датам
             existing_discounts = Discount.objects.filter(
                 (models.Q(start_date__lte=new_discount.start_date) & models.Q(end_date__gte=new_discount.start_date)) |
                 (models.Q(start_date__lte=new_discount.end_date) & models.Q(end_date__gte=new_discount.end_date)) |

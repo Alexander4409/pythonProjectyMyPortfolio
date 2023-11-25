@@ -8,7 +8,7 @@ from .models import Discount
 
 class SignupForm(UserCreationForm):
     email = forms.EmailField(max_length=200)
-
+#Переопределение конструктора формы для изменения текста подсказок (help_text) для полей username, password1, и password2.
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['username'].help_text = None
