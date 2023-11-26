@@ -59,4 +59,8 @@ class DiscountForm(forms.ModelForm):
     class Meta:
         model = Discount
         fields = ['name', 'start_date', 'end_date', 'amount']
+        widgets = {
+            'start_date': AdminDateWidget(attrs={'required': False}),
+            'end_date': AdminDateWidget(attrs={'required': False}),
+        }
 
