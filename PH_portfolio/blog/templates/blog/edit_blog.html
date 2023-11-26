@@ -1,10 +1,12 @@
 <!-- blog/templates/blog/edit_blog.html -->
 {% extends 'skills/base.html' %}
+{% load static %}
 
 {% block content %}
   <h1>Edit Blog</h1>
   <form method="post">
     {% csrf_token %}
+    {{ form.media }}
     {{ form.as_p }}
     <button class="btn btn-primary">Save Changes</button>
     <a href="{% url 'blog:delete_blog' blog.id %}" class="btn btn-danger">Delete</a>
